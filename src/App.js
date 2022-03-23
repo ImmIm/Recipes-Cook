@@ -1,23 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header/Header';
+import Homepage from './components/Homepage/Homepage';
+import React from 'react';
+import ctx from './context/mainContext';
 
 function App() {
+  const context = React.useContext(ctx);
+  const [lang, setLang] = React.useState(context.lang);
+  const [theme, setTheme] = React.useState(context.theme);
+  
+  const langHandler = () =>{
+    setLang((prev) => {
+      if (prev === 'EN'){
+        context.lang = 'HE'
+      }else{
+        context.lang = 'EN'
+      }
+    })
+  }
+
+  const themeHandler = () =>{
+    setTheme((prev) => {
+      if (prev === 'light'){
+        return 'dark';
+      }else{
+        return 'light';
+      }
+    })
+
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Header langHandler={langHandler} themeHandler={themeHandler}/>
+      <Homepage/>
     </div>
   );
 }
