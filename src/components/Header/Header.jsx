@@ -17,15 +17,14 @@ import { ButtonGroup } from '@mui/material';
 import DarkSwitch from '../UI/DarkSwitch';
 import FlagIL from '../../Assets/svg/FlagIL';
 
-const pages = ['Products', 'Recepies'];
+const pages = ['Products', 'Recipes'];
 const settings = ['Profile', 'Logout'];
-const logged = false;
-
+const logged = true;
 
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const [visibility, setVisible] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,20 +40,30 @@ const Header = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  
+  const visibilityHandler = () => {
+    setVisible((prev) => {
+      if (prev === false) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  };
 
   return (
     <AppBar
       position='sticky'
       sx={{
-        maxWidth: '1440px',
+        maxWidth: '1920px',
         margin: '0 auto',
-        backgroundColor: props.theme === 'light'? '#8EC77F': '#31708E',
+        backgroundColor: props.theme === 'light' ? '#8EC77F' : '#31708E',
         textColor: '#F7F9FB',
         transition: 'ease',
-        transitionDuration: '0.3s'
-      }}>
+        transitionDuration: '0.3s',
+        zIndex: '10000',
+      }}
+      onMouseEnter={visibilityHandler}
+      onMouseLeave={visibilityHandler}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           {/* Logo svg */}
@@ -165,12 +174,12 @@ const Header = (props) => {
               </Button>
             ) : (
               <Button variant='outline' onClick={props.langHandler}>
-                <FlagIL/>
+                <FlagIL />
               </Button>
             )}
           </Box>
           <Box>
-            <DarkSwitch onChange={props.themeHandler} defaultChecked/>
+            <DarkSwitch onChange={props.themeHandler} defaultChecked />
           </Box>
         </Toolbar>
       </Container>

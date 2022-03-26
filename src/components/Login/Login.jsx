@@ -8,7 +8,7 @@ export default function Login() {
   
 const handlerSubmit = (e) => {
   e.preventDefault();
-  if(email == '' || password == ''){
+  if(email.length.trim() === false || password.length.trim() === false){
     alert('Please fill out all fields')
   }
   console.log(email, password);
@@ -16,7 +16,7 @@ const handlerSubmit = (e) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+//add useEffect hook   delay checking validity   
   return (
     <Box
       component="form"

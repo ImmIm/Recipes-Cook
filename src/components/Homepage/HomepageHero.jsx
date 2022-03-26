@@ -2,20 +2,19 @@ import { Box, Button, Container } from '@mui/material';
 import React from 'react';
 import HomepageMainJpg from '../../Assets/Imgs/HomepageMainJpg.jpg';
 
-
 function HomepageHero() {
-  
   return (
     <section>
       <Container
-        maxWidth='1440px'
-        sx={{ padding: '0 0', border: '0 0' }}
+        maxWidth='1920px'
+        
+        sx={{ padding: '0 0', border: '0 0', position: 'relative'}}
         disableGutters>
         <img
           src={HomepageMainJpg}
           alt='Food'
           padding='0px'
-          style={{ maxWidth: '1440px', height: 'auto' }}
+          style={{ width: '100%', maxWidth: '1920px', height: 'auto', overflow: 'hidden'}}
         />
         <Box
           sx={{
@@ -29,11 +28,13 @@ function HomepageHero() {
             fontSize: '18px',
             width: '550px',
           }}>
-          <p style={{ color: '#FFFFFF', fontSize: '48px'}}>
+          <p style={{ color: '#FFFFFF', fontSize: '48px' }}>
             App Name is easy to use recipe finder<br></br>
             <br></br>Just enter what you have and get recipies for your dish
           </p>
-          <Button variant='contained' sx={{backgroundColor: '#8EC77F'}}>Get started</Button>
+          <Button variant='contained' sx={{ backgroundColor: '#8EC77F' }}>
+            Get started
+          </Button>
         </Box>
       </Container>
     </section>
