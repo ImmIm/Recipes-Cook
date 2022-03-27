@@ -1,8 +1,10 @@
-import { Container } from '@mui/material'
-import { Box } from '@mui/system'
+
 import React from 'react'
 import HomepageHero from './HomepageHero'
 import HomepageSectionProducts from './HomepageSectionProducts'
+import HomepageSectionRecipes from './HomepageSectionRecipes'
+import HomepageSectionDeserts from './HomepageSectionDeserts'
+
 
 
 
@@ -11,6 +13,8 @@ function Homepage() {
     <main>
     <HomepageHero/>
     <HomepageSectionProducts/>
+    <HomepageSectionRecipes/>
+    <HomepageSectionDeserts />
     </main>
   )
 }

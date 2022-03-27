@@ -1,10 +1,10 @@
 import { Button, Container } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import BorderTopMainpage from '../../Assets/svg/BorderTopMainpage';
-import MainpageFridge from '../../Assets/svg/MainpageFridge';
+import BorderBottomMainpage from '../../Assets/svg/BorderBottomMainpage';
+import SectionPic from '../../Assets/Imgs/HomepageSectionDesertsPic.png'
 
-function HomepageSectionProducts() {
+function HomepageSectionDeserts() {
   return (
     <section>
       <Container
@@ -20,7 +20,6 @@ function HomepageSectionProducts() {
           maxWidth='1920px'
           position='relative'
           sx={{ width: '100%', backgroundColor: '#5085A5', margin: '0 auto' }}>
-          <BorderTopMainpage />
           <Box
             sx={{
               display: 'flex',
@@ -38,7 +37,16 @@ function HomepageSectionProducts() {
                 margin: '0 auto',
                 marginTop: '10px',
               }}>
-              <MainpageFridge />
+              <img
+                src={SectionPic}
+                alt='FlagsAsFood'
+                padding='0px'
+                style={{
+                  width: '100%',
+                  maxWidth: '1920px',
+                  height: 'auto',
+                  overflow: 'hidden',
+                }}></img>
               {/* TODO: Image of fridge */}
             </Box>
             <Box
@@ -77,7 +85,7 @@ function HomepageSectionProducts() {
                     height: '55px',
                     marginTop: '10px',
                   }}>
-                  Vegetables
+                  Coktails
                 </Button>
                 <Button
                   sx={{
@@ -89,52 +97,16 @@ function HomepageSectionProducts() {
                     height: '55px',
                     marginTop: '10px',
                   }}>
-                  Fruits
-                </Button>
-                <Button
-                  sx={{
-                    border: '1px solid #F7F9FB',
-                    borderRadius: '30px',
-                    margin: '0 auto',
-                    color: '#F7F9FB',
-                    width: '125px',
-                    height: '55px',
-                    marginTop: '10px',
-                  }}>
-                  Diary
-                </Button>
-
-                <Button
-                  sx={{
-                    border: '1px solid #F7F9FB',
-                    borderRadius: '30px',
-                    margin: '0 auto',
-                    color: '#F7F9FB',
-                    width: '125px',
-                    height: '55px',
-                    marginTop: '10px',
-                  }}>
-                  Meat
-                </Button>
-                <Button
-                  sx={{
-                    border: '1px solid #F7F9FB',
-                    borderRadius: '30px',
-                    margin: '0 auto',
-                    color: '#F7F9FB',
-                    width: '125px',
-                    height: '55px',
-                    marginTop: '10px',
-                  }}>
-                  Fish
+                  Deserts
                 </Button>
               </Box>
             </Box>
           </Box>
+          <BorderBottomMainpage />
         </Box>
       </Container>
     </section>
   );
 }
 
-export default HomepageSectionProducts;
+export default HomepageSectionDeserts;

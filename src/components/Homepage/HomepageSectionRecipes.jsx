@@ -1,10 +1,10 @@
 import { Button, Container } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import BorderTopMainpage from '../../Assets/svg/BorderTopMainpage';
 import MainpageFridge from '../../Assets/svg/MainpageFridge';
+import SectionPic from '../../Assets/Imgs/HomepageSectionRecipesPic.png';
 
-function HomepageSectionProducts() {
+function HomepageSectionRecipes() {
   return (
     <section>
       <Container
@@ -20,27 +20,15 @@ function HomepageSectionProducts() {
           maxWidth='1920px'
           position='relative'
           sx={{ width: '100%', backgroundColor: '#5085A5', margin: '0 auto' }}>
-          <BorderTopMainpage />
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              flexWrap: 'wrap',
+              flexWrap: 'wrap-reverse',
               margin: '0 auto',
               padding: '100px 0',
             }}>
-            <Box
-              sx={{
-                maxWidth: '600px',
-                height: '600px',
-                backgroundColor: 'transparent',
-                margin: '0 auto',
-                marginTop: '10px',
-              }}>
-              <MainpageFridge />
-              {/* TODO: Image of fridge */}
-            </Box>
             <Box
               sx={{
                 maxWidth: '600px',
@@ -55,8 +43,8 @@ function HomepageSectionProducts() {
                   textAlign: 'right',
                   color: '#F7F9FB',
                 }}>
-                Pick what is in your fridge now, by selecting from vast variety
-                of products
+                More than 100000 recepies of Israel, Italian, French, Georgian,
+                Russian cuisine....<br></br>And much more
               </h2>
               <Box
                 sx={{
@@ -65,7 +53,7 @@ function HomepageSectionProducts() {
                   justifyContent: 'space-between',
                   flexWrap: 'wrap',
                   margin: '10px auto',
-                  maxWidth: '600px'
+                  maxWidth: '600px',
                 }}>
                 <Button
                   sx={{
@@ -77,7 +65,7 @@ function HomepageSectionProducts() {
                     height: '55px',
                     marginTop: '10px',
                   }}>
-                  Vegetables
+                  French
                 </Button>
                 <Button
                   sx={{
@@ -89,7 +77,7 @@ function HomepageSectionProducts() {
                     height: '55px',
                     marginTop: '10px',
                   }}>
-                  Fruits
+                  Israeli
                 </Button>
                 <Button
                   sx={{
@@ -101,34 +89,29 @@ function HomepageSectionProducts() {
                     height: '55px',
                     marginTop: '10px',
                   }}>
-                  Diary
-                </Button>
-
-                <Button
-                  sx={{
-                    border: '1px solid #F7F9FB',
-                    borderRadius: '30px',
-                    margin: '0 auto',
-                    color: '#F7F9FB',
-                    width: '125px',
-                    height: '55px',
-                    marginTop: '10px',
-                  }}>
-                  Meat
-                </Button>
-                <Button
-                  sx={{
-                    border: '1px solid #F7F9FB',
-                    borderRadius: '30px',
-                    margin: '0 auto',
-                    color: '#F7F9FB',
-                    width: '125px',
-                    height: '55px',
-                    marginTop: '10px',
-                  }}>
-                  Fish
+                  Italian
                 </Button>
               </Box>
+            </Box>
+            <Box
+              sx={{
+                maxWidth: '600px',
+                height: '600px',
+                backgroundColor: 'transparent',
+                margin: '0 auto',
+                marginTop: '10px',
+              }}>
+              <img
+                src={SectionPic}
+                alt='FlagsAsFood'
+                padding='0px'
+                style={{
+                  width: '100%',
+                  maxWidth: '1920px',
+                  height: 'auto',
+                  overflow: 'hidden',
+                }}></img>
+              {/* TODO: Image of fridge */}
             </Box>
           </Box>
         </Box>
@@ -137,4 +120,4 @@ function HomepageSectionProducts() {
   );
 }
 
-export default HomepageSectionProducts;
+export default HomepageSectionRecipes;

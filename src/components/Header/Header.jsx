@@ -19,7 +19,7 @@ import FlagIL from '../../Assets/svg/FlagIL';
 
 const pages = ['Products', 'Recipes'];
 const settings = ['Profile', 'Logout'];
-const logged = true;
+const logged = false;
 
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

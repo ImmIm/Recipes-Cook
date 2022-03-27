@@ -7,14 +7,13 @@ function HomepageHero() {
     <section>
       <Container
         maxWidth='1920px'
-        
-        sx={{ padding: '0 0', border: '0 0', position: 'relative'}}
+        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px', width: '100%'}}
         disableGutters>
         <img
           src={HomepageMainJpg}
           alt='Food'
           padding='0px'
-          style={{ width: '100%', maxWidth: '1920px', height: 'auto', overflow: 'hidden'}}
+          style={{ width: '100%', maxWidth: '1920px', overflow: 'hidden'}}
         />
         <Box
           sx={{
@@ -26,12 +25,12 @@ function HomepageHero() {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             fontSize: '18px',
-            width: '550px',
+            maxWidth: '550px',
           }}>
-          <p style={{ color: '#FFFFFF', fontSize: '48px' }}>
-            App Name is easy to use recipe finder<br></br>
+          <h1 style={{ color: '#FFFFFF', fontSize: 'calc(0.75em + 2vmin)'}}>
+            Recipes&Cook is easy to use recipe finder<br></br>
             <br></br>Just enter what you have and get recipies for your dish
-          </p>
+          </h1>
           <Button variant='contained' sx={{ backgroundColor: '#8EC77F' }}>
             Get started
           </Button>
