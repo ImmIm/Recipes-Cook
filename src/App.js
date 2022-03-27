@@ -8,11 +8,19 @@ import Footer from './components/Footer/Footer';
 import { Route, Routes } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Signup from './components/Registration/Signup';
+import {useDispatch} from 'react-redux'
 
 function App() {
   const context = React.useContext(ctx);
   const [lang, setLang] = React.useState(context.lang);
   const [theme, setTheme] = React.useState(context.theme);
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch({type: 'changeThemeBright'});
+  }, []);
+
 
   const langHandler = () => {
     setLang((prev) => {

@@ -29,8 +29,12 @@ export default function Signup() {
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': { m: 1, width: '25ch' },        width: '100%',
+        backgroundColor: '#5085A5',
+        margin: '0 auto'
       }}
+      maxWidth='1920px'
+      position='relative'
       noValidate
       autoComplete="off"
       onSubmit={handlerSubmit}

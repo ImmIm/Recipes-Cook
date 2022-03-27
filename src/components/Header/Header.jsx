@@ -17,6 +17,7 @@ import { ButtonGroup } from '@mui/material';
 import DarkSwitch from '../UI/DarkSwitch';
 import FlagIL from '../../Assets/svg/FlagIL';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch} from 'react-redux';
 
 const pages = ['Products', 'Recipes'];
 const settings = ['Profile', 'Logout'];
@@ -26,6 +27,8 @@ const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [visibility, setVisible] = React.useState(false);
+  const theme = useSelector(store => store.theme)
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -51,13 +54,21 @@ const Header = (props) => {
     });
   };
 
+  const themeChangeHandler = () =>{
+    if (theme === 'dark') {
+      dispatch({type: 'changeThemeBright'});
+    } else {
+      dispatch({type: 'changeThemeDark'});
+    }
+  }
+
   return (
     <AppBar
       position='sticky'
       sx={{
         maxWidth: '1920px',
         margin: '0 auto',
-        backgroundColor: props.theme === 'light' ? '#8EC77F' : '#31708E',
+        backgroundColor: theme === 'bright' ? '#8EC77F' : '#31708E',
         textColor: '#F7F9FB',
         transition: 'ease',
         transitionDuration: '0.3s',
@@ -182,7 +193,7 @@ const Header = (props) => {
             )}
           </Box>
           <Box>
-            <DarkSwitch onChange={props.themeHandler} defaultChecked />
+            <DarkSwitch onChange={themeChangeHandler}/>
           </Box>
         </Toolbar>
       </Container>
