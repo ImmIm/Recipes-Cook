@@ -16,6 +16,7 @@ import FlagEN from '../../Assets/svg/FlagEN';
 import { ButtonGroup } from '@mui/material';
 import DarkSwitch from '../UI/DarkSwitch';
 import FlagIL from '../../Assets/svg/FlagIL';
+import { Link } from 'react-router-dom';
 
 const pages = ['Products', 'Recipes'];
 const settings = ['Profile', 'Logout'];
@@ -72,10 +73,12 @@ const Header = (props) => {
             noWrap
             component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
-            <AppLogo />
+            <Link to='/Recipes-Cook' ><AppLogo /></Link>
+            
           </Typography>
           {/* Links */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -161,8 +164,8 @@ const Header = (props) => {
                 variant='text'
                 aria-label='text button group'
                 sx={{ borderColor: '#F7F9FB' }}>
-                <Button sx={{ color: '#F7F9FB' }}>Login</Button>
-                <Button sx={{ color: '#F7F9FB' }}>Sigh up</Button>
+                <Link to="Recipes-Cook/login" style={{textDecoration: 'none'}}><Button sx={{ color: '#F7F9FB' }}>Login</Button></Link>
+                <Link to='Recipes-Cook/signup' style={{textDecoration: 'none'}}><Button sx={{ color: '#F7F9FB' }}>Sigh up</Button></Link>
               </ButtonGroup>
             </Box>
           )}
