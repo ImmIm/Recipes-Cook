@@ -3,17 +3,17 @@
 This project is a final project of 7 month MASA program in Israel. This application idea is to get recipes to cook with all you've got in your fridge.
 
 ## Technology stack:
--HTML5
--CSS3
--JavaScript (ES6+)
--React js
--redux
--redux-thunk
--redux-toolkit
--React router
--Material UI
--react-spring (?)
--Firebase (Backend)
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- React js
+- redux
+- redux-thunk
+- redux-toolkit
+- React router
+- Material UI
+- react-spring (?)
+- Firebase (Backend)
 
 In the project directory, you can run:
 
