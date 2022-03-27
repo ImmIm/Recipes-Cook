@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Recipes & Cook
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a final project of 7 month MASA program in Israel. This application idea is to get recipes to cook with all you've got in your fridge.
 
 ## Available Scripts
 
