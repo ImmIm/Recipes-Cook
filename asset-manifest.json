@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Recipes-Cook/static/css/main.1da8b414.css",
-    "main.js": "/Recipes-Cook/static/js/main.5cefcbd9.js",
+    "main.js": "/Recipes-Cook/static/js/main.869212e7.js",
     "static/media/HomepageSectionDesertsPic.png": "/Recipes-Cook/static/media/HomepageSectionDesertsPic.47261d9f607e24e492ab.png",
     "static/media/HomepageMainJpg.jpg": "/Recipes-Cook/static/media/HomepageMainJpg.f0fad0462bb2c8021f69.jpg",
     "static/media/vecteezy_set-of-icons-on-the-theme-of-food-food-vector-doodle_3662775.jpg": "/Recipes-Cook/static/media/vecteezy_set-of-icons-on-the-theme-of-food-food-vector-doodle_3662775.d7672302e563958a8409.jpg",
@@ -9,10 +9,10 @@
     "static/media/logo.svg": "/Recipes-Cook/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/Recipes-Cook/index.html",
     "main.1da8b414.css.map": "/Recipes-Cook/static/css/main.1da8b414.css.map",
-    "main.5cefcbd9.js.map": "/Recipes-Cook/static/js/main.5cefcbd9.js.map"
+    "main.869212e7.js.map": "/Recipes-Cook/static/js/main.869212e7.js.map"
   },
   "entrypoints": [
     "static/css/main.1da8b414.css",
-    "static/js/main.5cefcbd9.js"
+    "static/js/main.869212e7.js"
   ]
 }
