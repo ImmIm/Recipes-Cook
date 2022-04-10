@@ -1,55 +1,61 @@
-import { Container } from '@mui/material';
-import { Box } from '@mui/system';
-import React from 'react';
+// import React from 'react';
+// import Box from '@material-ui/core/Box';
+// import Grid from '@material-ui/core/Grid';
+// import RssFeed from '@material-ui/icons/RssFeed';
+// import {
+//   CategoryProvider,
+//   CategoryTitle,
+//   CategoryItem,
+// } from '@mui-treasury/components/menu/category';
+// import { useMagCategoryMenuStyles } from '@mui-treasury/styles/categoryMenu/mag';
+// import { FontProvider, Font } from 'website/src/components/Font';
 
-function Footer() {
-  return (
-    <footer>
-      <Container
-        maxWidth='1920px'
-        sx={{
-          padding: '0 0',
-          border: '0 0',
-          position: 'relative',
-          // bottom: '20px',
-        }}
-        disableGutters>
-        <Box
-          maxWidth='1920px'
-          position='relative'
-          sx={{ width: '100%', backgroundColor: '#31708E', margin: '0 auto' }}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              margin: '0 auto',
-              padding: '100px 0',
-            }}>
-            <Box
-              sx={{
-                maxWidth: '600px',
-                height: '600px',
-                backgroundColor: 'transparent',
-                margin: '0 auto',
-                marginTop: '10px',
-              }}>
-              {/* TODO: Left footer info */}
-            </Box>
-            <Box
-              sx={{
-                maxWidth: '600px',
-                height: '600px',
-                backgroundColor: 'transparent',
-                margin: '0 auto',
-                marginTop: '10px',
-              }}></Box>
-          </Box>
-        </Box>
-      </Container>
-    </footer>
-  );
-}
-
-export default Footer;
+// export const Footer = React.memo(function MagCategoryMenu() {
+//   return (
+//     <Box minWidth={'80%'}>
+//       <FontProvider fonts={[{ font: 'Rambla', weights: [400, 700] }]}>
+//         <Grid container>
+//           <Grid item xs={6}>
+//             <CategoryProvider useStyles={useMagCategoryMenuStyles}>
+//               <CategoryTitle>
+//                 <Font>Travel</Font>
+//               </CategoryTitle>
+//               <CategoryItem>
+//                 <Font>About</Font>
+//               </CategoryItem>
+//               <CategoryItem>
+//                 <Font>Contact</Font>
+//               </CategoryItem>
+//               <CategoryItem>
+//                 <Font>Terms of Service</Font>
+//               </CategoryItem>
+//               <CategoryItem>
+//                 <Font>Privacy Policy</Font>
+//               </CategoryItem>
+//             </CategoryProvider>
+//           </Grid>
+//           <Grid item xs={6}>
+//             <CategoryProvider useStyles={useMagCategoryMenuStyles}>
+//               <CategoryTitle>
+//                 <Font>Follow us</Font>
+//               </CategoryTitle>
+//               <CategoryItem>
+//                 <Font>Facebook</Font>
+//               </CategoryItem>
+//               <CategoryItem>
+//                 <Font>Twitter</Font>
+//               </CategoryItem>
+//               <CategoryItem>
+//                 <Font>Instagram</Font>
+//               </CategoryItem>
+//               <CategoryItem>
+//                 <RssFeed fontSize={'small'} style={{ marginRight: 4 }} />{' '}
+//                 <Font>RSS</Font>
+//               </CategoryItem>
+//             </CategoryProvider>
+//           </Grid>
+//         </Grid>
+//       </FontProvider>
+//     </Box>
+//   );
+// });

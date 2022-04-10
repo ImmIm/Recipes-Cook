@@ -7,7 +7,7 @@ function HomepageHero() {
     <section>
       <Container
         maxWidth='1920px'
-        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px', width: '100%'}}
+        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px', width: '100%', backgroundColor: '#31708E' }}
         disableGutters>
         <img
           src={HomepageMainJpg}
@@ -18,7 +18,7 @@ function HomepageHero() {
         <Box
           sx={{
             position: 'absolute',
-            zIndex: '100',
+            zIndex: '10',
             padding: '0 0',
             margin: '0 auto',
             top: '50%',

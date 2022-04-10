@@ -27,7 +27,8 @@ const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [visibility, setVisible] = React.useState(false);
-  const theme = useSelector(store => store.theme)
+  const theme = useSelector(store => store.theme);
+  const backdrop = useSelector(store => store.backdrop)
   const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
@@ -53,6 +54,11 @@ const Header = (props) => {
       }
     });
   };
+
+  const loginHandler = () => {
+    dispatch({type: 'backdropOn'});
+    dispatch({type: 'logins'})
+  }
 
   const themeChangeHandler = () =>{
     if (theme === 'dark') {
@@ -175,7 +181,8 @@ const Header = (props) => {
                 variant='text'
                 aria-label='text button group'
                 sx={{ borderColor: '#F7F9FB' }}>
-                <Link to="Recipes-Cook/login" style={{textDecoration: 'none'}}><Button sx={{ color: '#F7F9FB' }}>Login</Button></Link>
+                <Button sx={{ color: '#F7F9FB' }} onClick={loginHandler}>Login</Button>
+                {/* <Link to="Recipes-Cook/login" style={{textDecoration: 'none'}}></Link> */}
                 <Link to='Recipes-Cook/signup' style={{textDecoration: 'none'}}><Button sx={{ color: '#F7F9FB' }}>Sigh up</Button></Link>
               </ButtonGroup>
             </Box>
@@ -183,11 +190,11 @@ const Header = (props) => {
 
           <Box>
             {props.lang === 'EN' ? (
-              <Button variant='outline' onClick={props.langHandler}>
+              <Button variant='outline'>
                 <FlagEN />
               </Button>
             ) : (
-              <Button variant='outline' onClick={props.langHandler}>
+              <Button variant='outline'>
                 <FlagIL />
               </Button>
             )}

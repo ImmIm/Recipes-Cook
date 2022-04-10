@@ -1,56 +1,52 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Header from './components/Header/Header';
 import Homepage from './components/Homepage/Homepage';
 import React from 'react';
-import ctx from './context/mainContext';
-import Footer from './components/Footer/Footer';
+// import Footer from './components/Footer/Footer';
 import { Route, Routes } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+// import Login from './components/Login/Login';
+import { useDispatch, useSelector } from 'react-redux';
 import Login from './components/Login/Login';
+import { Backdrop } from '@mui/material';
+import { Footer } from './components/Footer/Footer';
 import Signup from './components/Registration/Signup';
-import {useDispatch} from 'react-redux'
 
 function App() {
-  const context = React.useContext(ctx);
-  const [lang, setLang] = React.useState(context.lang);
-  const [theme, setTheme] = React.useState(context.theme);
-
+  const backdrop = useSelector((store) => store.backdrop);
+  const logins = useSelector(store => store.loginmodal);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch({type: 'changeThemeBright'});
+    dispatch({ type: 'INIT' });
+    dispatch({ type: 'changeThemeBright' });
   }, []);
 
-
-  const langHandler = () => {
-    setLang((prev) => {
-      if (prev === 'EN') {
-        context.lang = 'HE';
-      } else {
-        context.lang = 'EN';
-      }
-    });
-  };
-
-  const themeHandler = () => {
-    setTheme((prev) => {
-      if (prev === 'light') {
-        return 'dark';
-      } else {
-        return 'light';
-      }
-    });
-  };
   return (
     <div className='App'>
-      <Header langHandler={langHandler} themeHandler={themeHandler} />
+      <Header />
       <Routes>
         <Route path='/Recipes-Cook' element={<Homepage />} />
-        <Route path='/Recipes-Cook/login' element={<Login />} />
         <Route path='/Recipes-Cook/signup' element={<Signup />} />
         {/* <Route path='/Recipes-Cook/products' element={} /> */}
       </Routes>
       {/* <Footer /> */}
+      {ReactDOM.createPortal(
+        <Backdrop
+          open={backdrop || false}
+          sx={{
+            zIndex: '100',
+            opacity: '0.4',
+            backdropFilter: 'blur(2px)',
+            transitionDuration: '0.5s',
+          }}
+          invisible={false}
+          onClick={() => dispatch({ type: 'backdropOff' })}
+        />,
+        document.getElementById('backdrop-root')
+      )}
+      {ReactDOM.createPortal(<>{logins? <Login /> : null}</>, document.getElementById('modal-root'))}
     </div>
   );
 }
