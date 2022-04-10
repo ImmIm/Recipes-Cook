@@ -124,7 +124,7 @@ const Header = (props) => {
               }}>
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
+                <Link to={`Recipes-Cook/${page}`} style={{textDecoration: 'none'}}>{page}</Link> 
                 </MenuItem>
               ))}
             </Menu>
@@ -138,12 +138,12 @@ const Header = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
+              <Link to={`Recipes-Cook/${page}`} style={{textDecoration: 'none'}}><Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}>
                 {page}
-              </Button>
+              </Button></Link>
             ))}
           </Box>
           {logged ? (
