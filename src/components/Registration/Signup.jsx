@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Signup() {
 
@@ -10,18 +11,26 @@ export default function Signup() {
   const[email, setEmail] = useState('');
   const[password, setPassword] = useState('');
   const[submitpassword, setSubmitpassword] = useState('');
+  const dispatch = useDispatch()
+  const users = useSelector(state => state.users)
 
   
   const handlerSubmit = (e) => {
     e.preventDefault();
-    if(name == '' || email == '' || password == '' || submitpassword == ''){
-      alert('Please fill out all fields')
+    if(name === '' || email === '' || password === '' || submitpassword === ''){
+      alert('Please fill out all fields');
+      return;
     }
-    else if(password === submitpassword) {
-    console.log(name, email, password, submitpassword);
+
+    if(password === submitpassword) {
+    dispatch({type: 'signupHandle', email: email, pass:password, name: name});
+    console.log(users);
+    return;
     }
-    else if(password !== submitpassword){
-      alert('You entered two different passwords. Please try again.')
+
+    if(password !== submitpassword){
+      alert('You entered two different passwords. Please try again.');
+      return;
     }
   };
 
@@ -29,8 +38,12 @@ export default function Signup() {
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': { m: 1, width: '25ch' },        width: '100%',
+        backgroundColor: '#5085A5',
+        margin: '0 auto'
       }}
+      maxWidth='1920px'
+      position='relative'
       noValidate
       autoComplete="off"
       onSubmit={handlerSubmit}
@@ -51,7 +64,6 @@ export default function Signup() {
           onChange = {e => setEmail(e.target.value)}
         />
         </div>
-
         <div>
           <TextField
           required
