@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Homepage from './components/Homepage/Homepage';
 import React from 'react';
 import ctx from './context/mainContext';
+import Products from './components/Products/Products';
 
 function App() {
   const context = React.useContext(ctx);
@@ -32,8 +33,9 @@ function App() {
   }
   return (
     <div className='App'>
-      <Header langHandler={langHandler} themeHandler={themeHandler}/>
-      <Homepage/>
+      {/* <Header langHandler={langHandler} themeHandler={themeHandler}/>
+      <Homepage/> */}
+     <Products/>
     </div>
   );
 }
