@@ -12,6 +12,9 @@ import Login from './components/Login/Login';
 import { Backdrop } from '@mui/material';
 import { Footer } from './components/Footer/Footer';
 import Signup from './components/Registration/Signup';
+import { Search } from '@mui/icons-material';
+import ListOfProducts from './components/Products/ListOfProducts'
+import Products from './components/Products/Products';
 
 function App() {
   const backdrop = useSelector((store) => store.backdrop);
@@ -28,10 +31,10 @@ function App() {
       <Header />
       <Routes>
         <Route path='/Recipes-Cook' element={<Homepage />} />
-        <Route path='/Recipes-Cook/signup' element={<Signup />} />
-        {/* <Route path='/Recipes-Cook/products' element={} /> */}
+        <Route path='/Recipes-Cook/Signup' element={<Signup />} />
+        <Route path='/Recipes-Cook/Products' element={<Products />} />
+
       </Routes>
-      {/* <Footer /> */}
       {ReactDOM.createPortal(
         <Backdrop
           open={backdrop || false}
