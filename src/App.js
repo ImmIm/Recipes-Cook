@@ -19,6 +19,7 @@ import Products from './components/Products/Products';
 function App() {
   const backdrop = useSelector((store) => store.backdrop);
   const logins = useSelector(store => store.loginmodal);
+  const sighups = useSelector(store => store.sighupmodal);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -50,6 +51,7 @@ function App() {
         document.getElementById('backdrop-root')
       )}
       {ReactDOM.createPortal(<>{logins? <Login /> : null}</>, document.getElementById('modal-root'))}
+      {ReactDOM.createPortal(<>{sighups? <Signup /> : null}</>, document.getElementById('modal-root'))}
     </div>
   );
 }
