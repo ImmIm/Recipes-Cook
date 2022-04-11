@@ -25,31 +25,36 @@ const appReducer = (state = {}, action = 'INIT') => {
     case 'backdropOn':
       return { ...state, backdrop: true };
     case 'backdropOff':
-      return { ...state, backdrop: false, loginmodal: false };
+      return { ...state, backdrop: false, loginmodal: false , sighupmodal: false};
     case 'logins':
       return { ...state, loginmodal: true };
+      case 'signups':
+        return {...state, loginmodal: false, sighupmodal: true,  }
     case 'signupHandle':
+      console.log('hhui');
+      const temp = state.users;
+      temp.push({email: action.email, pass: action.pass, name: action.name})
       return {
         ...state,
-        users: [
-          ...state.users,
-          { email: action.email, pass: action.pass, name: action.name },
-        ],
+        users: temp
       };
     case 'loginHandle':
       if (
         state.users.find((el) => {
-          if (el.email === action.login) {
-            return true;
+          if (el.email == action.login) {
+            if (el.pass == action.pass){
+              return true;
+            }
           }
           return false;
         })
       ) {
+        localStorage.setItem('LOGGED_USER', action.login)
         console.log(state.currentUser);
         return { ...state, currentUser: action.login };
       }
       console.log('error');
-      break;
+      return state;
     default:
       return state;
   }

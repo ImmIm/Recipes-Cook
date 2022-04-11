@@ -17,18 +17,19 @@ import { ButtonGroup } from '@mui/material';
 import DarkSwitch from '../UI/DarkSwitch';
 import FlagIL from '../../Assets/svg/FlagIL';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const pages = ['Products', 'Recipes'];
 const settings = ['Profile', 'Logout'];
-const logged = false;
 
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [visibility, setVisible] = React.useState(false);
-  const theme = useSelector(store => store.theme);
-  const backdrop = useSelector(store => store.backdrop)
+  const theme = useSelector((store) => store.theme);
+  const currentUser = useSelector((store) => store.currentUser);
+  const [logged, setLogged] = React.useState(false);
+  const backdrop = useSelector((store) => store.backdrop);
   const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
@@ -55,18 +56,35 @@ const Header = (props) => {
     });
   };
 
-  const loginHandler = () => {
-    dispatch({type: 'backdropOn'});
-    dispatch({type: 'logins'})
-  }
-
-  const themeChangeHandler = () =>{
-    if (theme === 'dark') {
-      dispatch({type: 'changeThemeBright'});
-    } else {
-      dispatch({type: 'changeThemeDark'});
+  React.useEffect(() => {
+    if (currentUser !== '') {
+      setLogged(true);
+      return;
     }
-  }
+    setLogged(false);
+  }, [currentUser]);
+
+  const loginHandler = () => {
+    dispatch({ type: 'backdropOn' });
+    dispatch({ type: 'logins' });
+  };
+
+  const signUphandler = () => {
+    dispatch({ type: 'backdropOn' });
+    dispatch({ type: 'signups' });
+  };
+
+  const testHandler = () => {
+    console.log(currentUser);
+  };
+
+  const themeChangeHandler = () => {
+    if (theme === 'dark') {
+      dispatch({ type: 'changeThemeBright' });
+    } else {
+      dispatch({ type: 'changeThemeDark' });
+    }
+  };
 
   return (
     <AppBar
@@ -90,12 +108,12 @@ const Header = (props) => {
             noWrap
             component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
-            <Link to='/Recipes-Cook' ><AppLogo /></Link>
-            
+            <Link to='/Recipes-Cook'>
+              <AppLogo />
+            </Link>
           </Typography>
           {/* Links */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-          
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -124,7 +142,11 @@ const Header = (props) => {
               }}>
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <Link to={`Recipes-Cook/${page}`} style={{textDecoration: 'none'}}>{page}</Link> 
+                  <Link
+                    to={`Recipes-Cook/${page}`}
+                    style={{ textDecoration: 'none' }}>
+                    {page}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -138,19 +160,23 @@ const Header = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link to={`Recipes-Cook/${page}`} style={{textDecoration: 'none'}}><Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
-              </Button></Link>
+              <Link
+                to={`Recipes-Cook/${page}`}
+                style={{ textDecoration: 'none' }}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}>
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
           {logged ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='Open settings'>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+                <Avatar>{currentUser.name}</Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -181,9 +207,13 @@ const Header = (props) => {
                 variant='text'
                 aria-label='text button group'
                 sx={{ borderColor: '#F7F9FB' }}>
-                <Button sx={{ color: '#F7F9FB' }} onClick={loginHandler}>Login</Button>
+                <Button sx={{ color: '#F7F9FB' }} onClick={loginHandler}>
+                  Login
+                </Button>
                 {/* <Link to="Recipes-Cook/login" style={{textDecoration: 'none'}}></Link> */}
-                <Link to='Recipes-Cook/signup' style={{textDecoration: 'none'}}><Button sx={{ color: '#F7F9FB' }}>Sigh up</Button></Link>
+                <Button sx={{ color: '#F7F9FB' }} onClick={signUphandler}>
+                  Sigh up
+                </Button>
               </ButtonGroup>
             </Box>
           )}
@@ -200,8 +230,9 @@ const Header = (props) => {
             )}
           </Box>
           <Box>
-            <DarkSwitch onChange={themeChangeHandler}/>
+            <DarkSwitch onChange={themeChangeHandler} />
           </Box>
+          <Button onClick={testHandler}>test</Button>
         </Toolbar>
       </Container>
     </AppBar>
