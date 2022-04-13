@@ -120,9 +120,12 @@ export default function ListOfProducts() {
       </Accordion>
       <Button variant="contained"
       onClick={() => {
-        {context.currentProducts = context.products.filter(e => e.value == true).map(e => {return e.title}).sort()}
-        console.log(context.products.filter(e => e.value == true).map(e => {return e.title}).sort())
-        console.log(...context.recipes.map(e => {return e.ingredient.sort()}))}}>Search</Button>
+        console.log(context.currentProducts)
+        context.setCurrentProducts(context.products.filter(e => e.value == true).map(e => {return e.title}).sort())
+        console.log(context.currentProducts)
+        // console.log(context.products.filter(e => e.value == true).map(e => {return e.title}).sort())
+        // console.log(...context.recipes.map(e => {return e.ingredient.sort()}))
+        }}>Search</Button>
     </div>
   );
 }
