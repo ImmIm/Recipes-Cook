@@ -13,7 +13,9 @@ import { Box } from '@mui/system';
 
 export const AppContext = React.createContext([]);
 
-export default function Products() {
+
+export default function Products(props) {
+  
   const products = [
     { title: 'pork', type: 'meat', value: false },
     { title: 'beef', type: 'meat', value: false },
@@ -29,13 +31,18 @@ export default function Products() {
         {title: 'Recipe 2', img: <img src={recipe2} alt={"Recipe 2"}/>, description: 'Lumb with orange', ingredient: ['lumb', 'apple', 'orange']},
     ];
 
+    const [currentProducts, setCurrentProducts] = React.useState([])
+
+
+
   return (
     <AppContext.Provider value={{
         products: products,
         recipes: recipes,
-        currentProducts: ['garlic', 'apple', 'orange'],
+        currentProducts: currentProducts,
+        setCurrentProducts: setCurrentProducts
+
     }}>
-      <>
         <Grid
           container
           component='main'
@@ -60,7 +67,6 @@ export default function Products() {
               <ResultOfSearch />
           </Grid>
         </Grid>
-      </>
     </AppContext.Provider>
   );
 }
