@@ -27,40 +27,14 @@ export default function Products() {
     const recipes = [
         {title: 'Recipe 1', img: <img src={recipe1} alt={"Recipe 1"}/>, description: 'Apple with garlic', ingredient: ['garlic', 'apple', 'orange']},
         {title: 'Recipe 2', img: <img src={recipe2} alt={"Recipe 2"}/>, description: 'Lumb with orange', ingredient: ['lumb', 'apple', 'orange']},
-    ] 
-
-return <AppContext.Provider value={{
-    products: products,
-    recipes: recipes,
-    currentProducts: [],
-}}>
-<div>
-        <Search/>
-        <ListOfProducts/>
-        <ResultOfSearch/>
-    </div>
-
-  const recipes = [
-    {
-      title: 'Recipe 1',
-      img: <img src={recipe1} alt={'Recipe 1'} />,
-      description: 'Lorem ipsum',
-      ingredient: ['garlic', 'apple', 'orange'],
-    },
-    {
-      title: 'Recipe 2',
-      img: <img src={recipe2} alt={'Recipe 2'} />,
-      description: 'Lorem ipsum',
-      ingredient: ['lumb', 'apple', 'orange'],
-    },
-  ];
+    ];
 
   return (
-    <AppContext.Provider
-      value={{
+    <AppContext.Provider value={{
         products: products,
         recipes: recipes,
-      }}>
+        currentProducts: ['garlic', 'apple', 'orange'],
+    }}>
       <>
         <Grid
           container

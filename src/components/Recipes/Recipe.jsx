@@ -1,31 +1,10 @@
 
-import {useContext} from 'react';
 import {AppContext} from '../Products/Products';
-
-export default function Recipe(){
-const context = useContext(AppContext);
-
-    return <div>
-{context.recipes.filter(({ingredient})=>{
-    return JSON.stringify(ingredient.sort()) === JSON.stringify(context.currentProducts.sort())
-})
-.map(recipe => {return <div className="recipe" key={recipe.title}>
-{recipe.title}
-{recipe.img}
-{recipe.description}
-</div>
-})
-}
-    </div>
-}
-
-import { RecipesContext } from './Recipes';
 import { useContext } from 'react';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
@@ -38,10 +17,10 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-export default function Recipe() {
-  const context = useContext(RecipesContext);
+export default function Recipe(){
+const context = useContext(AppContext);
 
-  const ExpandMore = styled((props) => {
+const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
   })(({ theme, expand }) => ({
@@ -57,10 +36,11 @@ export default function Recipe() {
     setExpanded(!expanded);
   };
 
-  return (
-    <>
-      {context.recipes.map((recipe) => {
-        return (
+    return <>
+{context.recipes.filter(({ingredient})=>{
+    return JSON.stringify(ingredient.sort()) === JSON.stringify(context.currentProducts.sort())
+})
+.map(recipe => {return <div className="recipe" key={recipe.title}>
           <Card sx={{margin: '10px 0'}}>
             <CardHeader
               avatar={
@@ -73,7 +53,7 @@ export default function Recipe() {
                   <MoreVertIcon />
                 </IconButton>
               }
-              title='Shrimp and Chorizo Paella'
+              title={recipe.title}
               subheader='September 14, 2016'
             />
             {recipe.img}
@@ -131,8 +111,9 @@ export default function Recipe() {
               </CardContent>
             </Collapse>
           </Card>
-        );
-      })}
+        )
+</div>
+})
+}
     </>
-  );
 }
