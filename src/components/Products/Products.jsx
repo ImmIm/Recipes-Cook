@@ -5,6 +5,7 @@ import ResultOfSearch from './ResultOfSearch';
 import './Products.css';
 import recipe1 from '../Recipes/img/recipe1.jpg';
 import recipe2 from '../Recipes/img/recipe2.jpg';
+import Recipe from '../Recipes/Recipe';
 
 export const AppContext = React.createContext([]);
 
@@ -20,13 +21,14 @@ export default function Products(){
       ];
 
     const recipes = [
-        {title: 'Recipe 1', img: <img src={recipe1} alt={"Recipe 1"}/>, description: 'Lorem ipsum', ingredient: ['garlic', 'apple', 'orange']},
-        {title: 'Recipe 2', img: <img src={recipe2} alt={"Recipe 2"}/>, description: 'Lorem ipsum', ingredient: ['lumb', 'apple', 'orange']},
+        {title: 'Recipe 1', img: <img src={recipe1} alt={"Recipe 1"}/>, description: 'Apple with garlic', ingredient: ['garlic', 'apple', 'orange']},
+        {title: 'Recipe 2', img: <img src={recipe2} alt={"Recipe 2"}/>, description: 'Lumb with orange', ingredient: ['lumb', 'apple', 'orange']},
     ] 
 
 return <AppContext.Provider value={{
     products: products,
-    recipes: recipes
+    recipes: recipes,
+    currentProducts: [],
 }}>
 <div>
         <Search/>

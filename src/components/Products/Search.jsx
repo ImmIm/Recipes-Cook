@@ -1,9 +1,9 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
-import {AppContext} from './Products';
-import {useContext} from 'react'
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Autocomplete from "@mui/material/Autocomplete";
+import { AppContext } from "./Products";
+import { useContext } from "react";
 
 export default function Search() {
   const context = useContext(AppContext);
@@ -12,22 +12,30 @@ export default function Search() {
       <Autocomplete
         freeSolo
         autoHighlight={true}
-        onInputChange = {(e)=> console.log('Hello')}
+        onInputChange={(e, value) => {
+          context.products.forEach((el)=>{
+            if(el.title == value){
+            el.value = !el.value;
+            return;
+            }
+          })
+        }}
         id="free-solo-2-demo"
         disableClearable
-        options={context.products.map(e => e.title)}
+        options={context.products.map((e) => e.title)}
         renderInput={(params) => (
           <TextField
             {...params}
             label="Enter your products"
             InputProps={{
               ...params.InputProps,
-              type: 'search',
+              type: "search",
             }}
           />
         )}
       />
-      We hope you have water, salt and pepper. These products are available by default.
+      We hope you have water, salt and pepper. These products are available by
+      default.
     </Stack>
   );
 }
