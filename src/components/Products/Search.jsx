@@ -8,7 +8,7 @@ import { useContext } from "react";
 export default function Search() {
   const context = useContext(AppContext);
   return (
-    <Stack spacing={2} sx={{ width: 300 }} className="search">
+    <Stack spacing={2} sx={{ maxWidth: 300, margin: '0 auto'}} className="search">
       <Autocomplete
         freeSolo
         autoHighlight={true}

@@ -16,16 +16,21 @@ import FlagEN from '../../Assets/svg/FlagEN';
 import { ButtonGroup } from '@mui/material';
 import DarkSwitch from '../UI/DarkSwitch';
 import FlagIL from '../../Assets/svg/FlagIL';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-const pages = ['Products', 'Recepies'];
+const pages = ['Products', 'Recipes'];
 const settings = ['Profile', 'Logout'];
-const logged = false;
-
 
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const [visibility, setVisible] = React.useState(false);
+  const theme = useSelector((store) => store.theme);
+  const currentUser = useSelector((store) => store.currentUser);
+  const [logged, setLogged] = React.useState(false);
+  const backdrop = useSelector((store) => store.backdrop);
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,20 +46,60 @@ const Header = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const visibilityHandler = () => {
+    setVisible((prev) => {
+      if (prev === false) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  };
 
-  
+  React.useEffect(() => {
+    if (currentUser !== '') {
+      setLogged(true);
+      return;
+    }
+    setLogged(false);
+  }, [currentUser]);
+
+  const loginHandler = () => {
+    dispatch({ type: 'backdropOn' });
+    dispatch({ type: 'logins' });
+  };
+
+  const signUphandler = () => {
+    dispatch({ type: 'backdropOn' });
+    dispatch({ type: 'signups' });
+  };
+
+  const testHandler = () => {
+    console.log(currentUser);
+  };
+
+  const themeChangeHandler = () => {
+    if (theme === 'dark') {
+      dispatch({ type: 'changeThemeBright' });
+    } else {
+      dispatch({ type: 'changeThemeDark' });
+    }
+  };
 
   return (
     <AppBar
       position='sticky'
       sx={{
-        maxWidth: '1440px',
+        maxWidth: '1920px',
         margin: '0 auto',
-        backgroundColor: props.theme === 'light'? '#8EC77F': '#31708E',
+        backgroundColor: theme === 'bright' ? '#8EC77F' : '#31708E',
         textColor: '#F7F9FB',
         transition: 'ease',
-        transitionDuration: '0.3s'
-      }}>
+        transitionDuration: '0.3s',
+        zIndex: '10000',
+      }}
+      onMouseEnter={visibilityHandler}
+      onMouseLeave={visibilityHandler}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           {/* Logo svg */}
@@ -63,7 +108,9 @@ const Header = (props) => {
             noWrap
             component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
-            <AppLogo />
+            <Link to='/Recipes-Cook'>
+              <AppLogo />
+            </Link>
           </Typography>
           {/* Links */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -95,7 +142,11 @@ const Header = (props) => {
               }}>
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
+                  <Link
+                    to={`Recipes-Cook/${page}`}
+                    style={{ textDecoration: 'none' }}>
+                    {page}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -109,19 +160,23 @@ const Header = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
-              </Button>
+              <Link
+                to={`Recipes-Cook/${page}`}
+                style={{ textDecoration: 'none' }}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}>
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
           {logged ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='Open settings'>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+                <Avatar>{currentUser.name}</Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -152,26 +207,32 @@ const Header = (props) => {
                 variant='text'
                 aria-label='text button group'
                 sx={{ borderColor: '#F7F9FB' }}>
-                <Button sx={{ color: '#F7F9FB' }}>Login</Button>
-                <Button sx={{ color: '#F7F9FB' }}>Sigh up</Button>
+                <Button sx={{ color: '#F7F9FB' }} onClick={loginHandler}>
+                  Login
+                </Button>
+                {/* <Link to="Recipes-Cook/login" style={{textDecoration: 'none'}}></Link> */}
+                <Button sx={{ color: '#F7F9FB' }} onClick={signUphandler}>
+                  Sigh up
+                </Button>
               </ButtonGroup>
             </Box>
           )}
 
           <Box>
             {props.lang === 'EN' ? (
-              <Button variant='outline' onClick={props.langHandler}>
+              <Button variant='outline'>
                 <FlagEN />
               </Button>
             ) : (
-              <Button variant='outline' onClick={props.langHandler}>
-                <FlagIL/>
+              <Button variant='outline'>
+                <FlagIL />
               </Button>
             )}
           </Box>
           <Box>
-            <DarkSwitch onChange={props.themeHandler} defaultChecked/>
+            <DarkSwitch onChange={themeChangeHandler} />
           </Box>
+          <Button onClick={testHandler}>test</Button>
         </Toolbar>
       </Container>
     </AppBar>
