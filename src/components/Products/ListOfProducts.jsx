@@ -50,10 +50,17 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 export default function ListOfProducts() {
   const context = useContext(AppContext);
   const [expanded, setExpanded] = React.useState('');
+  const [expanded1, setExpanded1] = React.useState('');
+  const [expanded2, setExpanded2] = React.useState('');
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-
+  const handleChange1 = (panel) => (event, newExpanded) => {
+    setExpanded1(newExpanded ? panel : false);
+  };
+  const handleChange2 = (panel) => (event, newExpanded) => {
+    setExpanded2(newExpanded ? panel : false);
+  };
   return ( 
   <div className="products">
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -64,7 +71,7 @@ export default function ListOfProducts() {
           <Typography>
             {context.products.filter(e => e.type === 'meat').map(e => {
                 return <span key={e.title}>
-                <Button variant="outlined" style={{background: 'white'}}
+                <Button variant="outlined" style={{background: e.value == true ? "pink" : "white"}}
                 onClick={(b) => {
                     b.target.style.background === 'white' ? b.target.style.background = "pink" : b.target.style.background = "white";
                     e.value = !e.value;
@@ -75,7 +82,7 @@ export default function ListOfProducts() {
           </Typography>
         </AccordionDetails>
       </Accordion> 
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+      <Accordion expanded={expanded1 === 'panel2'} onChange={handleChange1('panel2')}>
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
           <Typography>Fruits</Typography>
         </AccordionSummary>
@@ -83,7 +90,7 @@ export default function ListOfProducts() {
           <Typography>
             {context.products.filter(e => e.type === 'fruits').map(e => {
                 return <span key={e.title}>
-                  <Button variant="outlined" style={{background: 'white'}}
+                  <Button variant="outlined" style={{background: e.value == true ? "pink" : "white"}}
                 onClick={(b) => {
                     b.target.style.background === 'white' ? b.target.style.background = "pink" : b.target.style.background = "white";
                     e.value = !e.value;}}
@@ -93,7 +100,7 @@ export default function ListOfProducts() {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+      <Accordion expanded={expanded2 === 'panel3'} onChange={handleChange2('panel3')}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <Typography>Vegetables</Typography>
         </AccordionSummary>
@@ -101,7 +108,7 @@ export default function ListOfProducts() {
           <Typography>
             {context.products.filter(e => e.type === 'vegetables').map(e => {
                 return <span key={e.title}>
-                 <Button variant="outlined" style={{background: 'white'}}
+                 <Button variant="outlined" style={{background: e.value == true ? "pink" : "white"}}
                 onClick={(b) => {
                     b.target.style.background === 'white' ? b.target.style.background = "pink" : b.target.style.background = "white";
                     e.value = !e.value;}}
@@ -112,8 +119,10 @@ export default function ListOfProducts() {
         </AccordionDetails>
       </Accordion>
       <Button variant="contained"
-      onClick={() => {console.log(context.products.filter(e => e.value == true).map(e => {return e.title}).sort())
-      console.log(...context.recipes.map(e => {return e.ingredient.sort()}))}}>Search</Button>
+      onClick={() => {
+        {context.currentProducts = context.products.filter(e => e.value == true).map(e => {return e.title}).sort()}
+        console.log(context.products.filter(e => e.value == true).map(e => {return e.title}).sort())
+        console.log(...context.recipes.map(e => {return e.ingredient.sort()}))}}>Search</Button>
     </div>
   );
 }
