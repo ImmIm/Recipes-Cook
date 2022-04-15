@@ -18,6 +18,9 @@ import DarkSwitch from '../UI/DarkSwitch';
 import FlagIL from '../../Assets/svg/FlagIL';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import {getData} from '../../store/store';
+import { authActions, uiActions } from '../../store/store';
+
 
 const pages = ['Products', 'Recipes'];
 const settings = ['Profile', 'Logout'];
@@ -26,11 +29,12 @@ const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [visibility, setVisible] = React.useState(false);
-  const theme = useSelector((store) => store.theme);
-  const currentUser = useSelector((store) => store.currentUser);
+  const theme = useSelector((store) => store.ui.theme);
+  const currentUser = useSelector((store) => store.auth.currentUser);
   const [logged, setLogged] = React.useState(false);
-  const backdrop = useSelector((store) => store.backdrop);
+  const backdrop = useSelector((store) => store.ui.backdrop);
   const dispatch = useDispatch();
+  // const test = useSelector(store => store.test)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -65,25 +69,22 @@ const Header = (props) => {
   }, [currentUser]);
 
   const loginHandler = () => {
-    dispatch({ type: 'backdropOn' });
-    dispatch({ type: 'logins' });
+    dispatch(uiActions.toggleBackdrop());
+    dispatch(uiActions.setLoginStatus());
   };
 
   const signUphandler = () => {
-    dispatch({ type: 'backdropOn' });
-    dispatch({ type: 'signups' });
+    dispatch(uiActions.toggleBackdrop());
+    dispatch(uiActions.setSignUpStatus());
   };
 
-  const testHandler = () => {
-    console.log(currentUser);
-  };
+  // const testHandler = () => {
+  // getData()(dispatch);
+  // console.log(test);
+  // };
 
   const themeChangeHandler = () => {
-    if (theme === 'dark') {
-      dispatch({ type: 'changeThemeBright' });
-    } else {
-      dispatch({ type: 'changeThemeDark' });
-    }
+dispatch(uiActions.toggleTheme);
   };
 
   return (
@@ -232,7 +233,7 @@ const Header = (props) => {
           <Box>
             <DarkSwitch onChange={themeChangeHandler} />
           </Box>
-          <Button onClick={testHandler}>test</Button>
+          {/* <Button onClick={testHandler}>test</Button> */}
         </Toolbar>
       </Container>
     </AppBar>
