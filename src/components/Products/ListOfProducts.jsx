@@ -7,7 +7,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import {useContext} from 'react';
 import {useState} from 'react';
-import {AppContext} from './Products';
+import { AppContext } from '../../App';
 import Button from '@mui/material/Button';
 
 const Accordion = styled((props) => (
