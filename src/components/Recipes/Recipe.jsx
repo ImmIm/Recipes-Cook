@@ -1,5 +1,6 @@
-import { AppContext } from '../Products/Products';
+
 import { useContext, useEffect } from 'react';
+import { AppContext } from '../../App';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -124,7 +125,6 @@ console.log('Changed context');
                   </CardContent>
                 </Collapse>
               </Card>
-              )
             </div>
           );
         })}

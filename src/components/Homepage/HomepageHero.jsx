@@ -1,6 +1,8 @@
 import { Box, Button, Container } from '@mui/material';
 import React from 'react';
 import HomepageMainJpg from '../../Assets/Imgs/HomepageMainJpg.jpg';
+import Search from '../Products/Search';
+import HomePageSearch from './HomePageSearch';
 
 function HomepageHero() {
   return (
@@ -13,7 +15,7 @@ function HomepageHero() {
           src={HomepageMainJpg}
           alt='Food'
           padding='0px'
-          style={{ width: '100%', maxWidth: '1920px', overflow: 'hidden'}}
+          style={{ width: '100%',height: '100%', maxWidth: '1920px', overflow: 'hidden'}}
         />
         <Box
           sx={{
@@ -31,6 +33,7 @@ function HomepageHero() {
             Recipes&Cook is easy to use recipe finder<br></br>
             <br></br>Just enter what you have and get recipies for your dish
           </h1>
+          <HomePageSearch />
           <Button variant='contained' sx={{ backgroundColor: '#8EC77F' }}>
             Get started
           </Button>

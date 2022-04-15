@@ -13,9 +13,9 @@ function Homepage() {
   return (
     <main>
       <HomepageHero />
-      <HomepageSectionProducts />
+      {/* <HomepageSectionProducts />
       <HomepageSectionRecipes />
-      <HomepageSectionDeserts />
+      <HomepageSectionDeserts /> */}
 
     </main>
   );

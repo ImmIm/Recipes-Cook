@@ -1,20 +1,22 @@
-import * as React from "react";
+import React from 'react'
+import {AppContext} from '../../App'
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
-import { AppContext } from "../../App";
 import { useContext } from "react";
 
-export default function Search() {
-  const context = useContext(AppContext);
+
+function HomePageSearch() {
+    const context = useContext(AppContext);
   return (
     <Stack spacing={2} sx={{ maxWidth: 300, margin: '0 auto'}} className="search">
+        {/* search recipe with entered ingredient */}
       <Autocomplete
         freeSolo
         autoHighlight={true}
         onInputChange={(e, value) => {
-          context.products.forEach((el)=>{
-            if(el.title == value){
+          context.recipes.forEach((el)=>{
+            if(el.ingredient.find(e => {if (e === value) return true})){
             el.value = !el.value;
             return;
             }
@@ -22,7 +24,7 @@ export default function Search() {
         }}
         id="free-solo-2-demo"
         disableClearable
-        options={context.products.map((e) => e.title)}
+        options={context.recipes.map((e) => e.title)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -37,5 +39,7 @@ export default function Search() {
       We hope you have water, salt and pepper. These products are available by
       default.
     </Stack>
-  );
+  )
 }
+
+export default HomePageSearch
