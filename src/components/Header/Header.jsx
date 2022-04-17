@@ -19,7 +19,7 @@ import FlagIL from '../../Assets/svg/FlagIL';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {getData} from '../../store/store';
-import { authActions, uiActions } from '../../store/store';
+import { authActions, uiActions} from '../../store/store';
 
 
 const pages = ['Products', 'Recipes'];
@@ -84,7 +84,7 @@ const Header = (props) => {
   // };
 
   const themeChangeHandler = () => {
-dispatch(uiActions.toggleTheme);
+dispatch(uiActions.toggleTheme());
   };
 
   return (

@@ -9,6 +9,9 @@ import {useContext} from 'react';
 import {useState} from 'react';
 import { AppContext } from '../../App';
 import Button from '@mui/material/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { recipesActions } from '../../store/store';
+import store from '../../store/store';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -52,6 +55,8 @@ export default function ListOfProducts() {
   const [expanded, setExpanded] = React.useState('');
   const [expanded1, setExpanded1] = React.useState('');
   const [expanded2, setExpanded2] = React.useState('');
+  const dispatch = useDispatch();
+  // const productsString = useSelector(state => state.recipes.chosenIngredients);
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -61,6 +66,25 @@ export default function ListOfProducts() {
   const handleChange2 = (panel) => (event, newExpanded) => {
     setExpanded2(newExpanded ? panel : false);
   };
+  const searchHandler = () => {
+    context.setCurrentProducts((prev) => {return [...prev, ...context.products.filter(e => e.value == true).map(e => {return e.title}) ]});
+    getData(context.currentProducts)(dispatch);
+    
+  }
+
+  const getData = (products) => async (dispatch) => {
+    if (products) {
+      fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(",+")}&number=10&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          dispatch(recipesActions.setRecipes({data: data}));
+          console.log(data);
+        });
+    }
+    return;
+    };
   return ( 
   <div className="products">
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -119,13 +143,7 @@ export default function ListOfProducts() {
         </AccordionDetails>
       </Accordion>
       <Button variant="contained"
-      onClick={() => {
-        console.log(context.currentProducts)
-        context.setCurrentProducts(context.products.filter(e => e.value == true).map(e => {return e.title}).sort())
-        console.log(context.currentProducts)
-        // console.log(context.products.filter(e => e.value == true).map(e => {return e.title}).sort())
-        // console.log(...context.recipes.map(e => {return e.ingredient.sort()}))
-        }}>Search</Button>
+      onClick={searchHandler}>Search</Button>
     </div>
   );
 }

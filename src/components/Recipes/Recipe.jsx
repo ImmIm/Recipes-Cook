@@ -16,9 +16,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useDispatch, useSelector } from 'react-redux';
+import { recipesActions } from '../../store/store';
 
 export default function Recipe() {
   const context = useContext(AppContext);
+  // const products = useSelector(state => state.recipes.currentProducts);
+  const dispatch = useDispatch();
+  const currentProducts = context.currentProducts;
 
   useEffect(() => {
 console.log('Changed context');
@@ -40,7 +45,9 @@ console.log('Changed context');
     setExpanded(!expanded);
   };
 
-  console.log(context.currentProducts);
+  dispatch(recipesActions.setInredients({ingredient: currentProducts}))
+
+  
 
   return (
     <>
