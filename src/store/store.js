@@ -1,7 +1,6 @@
 
 import thunk from 'redux-thunk';
 import { createSlice, configureStore } from '@reduxjs/toolkit';
-import { StoreMallDirectoryRounded } from '@mui/icons-material';
 
 const preloadedState = {
   ui: {
@@ -21,7 +20,7 @@ const preloadedState = {
   },
   recipes: {
     chosenIngredients: '',
-    recipes: {}
+    recipes: [],
   }
 };
 
@@ -115,7 +114,7 @@ const recipesSlice = createSlice({
       state.recipes = action.payload.data;
       console.log(action.payload.data);
       return state;
-    }
+    },
 }})
 
 

@@ -26,7 +26,8 @@ function App() {
   const logins = useSelector(store => store.ui.loginmodal);
   const signups = useSelector(store => store.ui.signupmodal);
   const dispatch = useDispatch();
-  const [currentProducts, setCurrentProducts] = React.useState([])
+  const [currentProducts, setCurrentProducts] = React.useState([]);
+
 
   const products = [
     { title: 'pork', type: 'meat', value: false },

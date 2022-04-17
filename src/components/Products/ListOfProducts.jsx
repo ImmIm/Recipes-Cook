@@ -50,13 +50,17 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 
+
+
+
+
 export default function ListOfProducts() {
   const context = useContext(AppContext);
   const [expanded, setExpanded] = React.useState('');
   const [expanded1, setExpanded1] = React.useState('');
   const [expanded2, setExpanded2] = React.useState('');
   const dispatch = useDispatch();
-  // const productsString = useSelector(state => state.recipes.chosenIngredients);
+
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -66,21 +70,22 @@ export default function ListOfProducts() {
   const handleChange2 = (panel) => (event, newExpanded) => {
     setExpanded2(newExpanded ? panel : false);
   };
-  const searchHandler = () => {
-    context.setCurrentProducts((prev) => {return [...prev, ...context.products.filter(e => e.value == true).map(e => {return e.title}) ]});
-    getData(context.currentProducts)(dispatch);
-    
+  const  searchHandler = () => {
+   context.setCurrentProducts((prev) => {return [...prev, ...context.products.filter(e => e.value == true).map(e => {return e.title}) ]});
   }
+
+  React.useEffect(() => {
+    getData(context.currentProducts)(dispatch);
+  }, [context.currentProducts]);
 
   const getData = (products) => async (dispatch) => {
     if (products) {
-      fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(",+")}&number=10&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`)
+      fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(",+")}&number=2&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`)
         .then(function (response) {
           return response.json();
         })
         .then(function (data) {
           dispatch(recipesActions.setRecipes({data: data}));
-          console.log(data);
         });
     }
     return;
