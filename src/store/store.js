@@ -21,6 +21,7 @@ const preloadedState = {
   recipes: {
     chosenIngredients: '',
     recipes: [],
+    loadingImgs: false
   }
 };
 
@@ -115,6 +116,16 @@ const recipesSlice = createSlice({
       console.log(action.payload.data);
       return state;
     },
+    setLoading(state, action){
+      state.loadingImgs = true;
+      console.log(state.loadingImgs);
+      return state;
+    },
+    setLoaded(state){
+      state.loadingImgs = false;
+      console.log(state.loadingImgs);
+      return state;
+    }
 }})
 
 

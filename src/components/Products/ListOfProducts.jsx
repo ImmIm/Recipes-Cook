@@ -76,6 +76,7 @@ export default function ListOfProducts() {
 
   React.useEffect(() => {
     getData(context.currentProducts)(dispatch);
+    dispatch(recipesActions.setLoading());
   }, [context.currentProducts]);
 
   const getData = (products) => async (dispatch) => {
@@ -86,6 +87,7 @@ export default function ListOfProducts() {
         })
         .then(function (data) {
           dispatch(recipesActions.setRecipes({data: data}));
+          dispatch(recipesActions.setLoaded());
         });
     }
     return;

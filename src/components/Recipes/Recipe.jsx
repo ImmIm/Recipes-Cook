@@ -17,10 +17,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
 import { recipesActions } from '../../store/store';
+import { Skeleton } from '@mui/material';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function Recipe() {
   const context = useContext(AppContext);
-  // const products = useSelector(state => state.recipes.imgs);
+  const loading = useSelector((state) => state.recipes.loadingImgs);
   const dispatch = useDispatch();
   const currentProducts = context.currentProducts;
   const recipes = useSelector((store) => store.recipes.recipes);
@@ -50,9 +53,7 @@ export default function Recipe() {
   return (
     <>
       {recipes.map((recipe) => {
-
         const img = recipe.image;
-
         return (
           <div className='recipe' key={recipe.title}>
             <Card sx={{ margin: '10px 0' }}>
@@ -70,7 +71,14 @@ export default function Recipe() {
                 title={recipe.title}
                 subheader='September 14, 2016'
               />
-              <img src={img} alt={recipe.title}></img>
+              <LazyLoadImage alt={recipe.title} src={img} effect='blur' />
+              {/* {loading ? (
+                <Skeleton variant='rectangular' width='100%'>
+                  <div style={{ paddingTop: '57%' }} />
+                </Skeleton>
+              ) : (
+                <LazyLoadImage alt={recipe.title} src={img} effect='blur'/>
+              )} */}
               <CardContent>
                 <Typography variant='body2' color='text.secondary'>
                   {recipe.description}
