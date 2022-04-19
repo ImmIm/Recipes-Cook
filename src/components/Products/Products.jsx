@@ -9,19 +9,9 @@ import Header from '../Header/Header';
 import { Box } from '@mui/system';
 
 
-
-
-
 export default function Products(props) {
   
- 
-
-
-
-
-
   return (
-  
         <Grid
           container
           component='main'

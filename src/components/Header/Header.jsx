@@ -18,19 +18,23 @@ import DarkSwitch from '../UI/DarkSwitch';
 import FlagIL from '../../Assets/svg/FlagIL';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import {getData} from '../../store/store';
+import { authActions, uiActions} from '../../store/store';
+
 
 const pages = ['Products', 'Recipes'];
-const settings = ['Profile', 'Logout'];
+
 
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [visibility, setVisible] = React.useState(false);
-  const theme = useSelector((store) => store.theme);
-  const currentUser = useSelector((store) => store.currentUser);
+  const theme = useSelector((store) => store.ui.theme);
+  const currentUser = useSelector((store) => store.auth.currentUser);
   const [logged, setLogged] = React.useState(false);
-  const backdrop = useSelector((store) => store.backdrop);
+  const backdrop = useSelector((store) => store.ui.backdrop);
   const dispatch = useDispatch();
+  // const test = useSelector(store => store.test)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -56,6 +60,14 @@ const Header = (props) => {
     });
   };
 
+  const logoutHandler = () =>{
+    dispatch(authActions.logout())
+  }
+
+  const profileHandler = () =>{
+    console.log('profile');
+  }
+
   React.useEffect(() => {
     if (currentUser !== '') {
       setLogged(true);
@@ -65,27 +77,25 @@ const Header = (props) => {
   }, [currentUser]);
 
   const loginHandler = () => {
-    dispatch({ type: 'backdropOn' });
-    dispatch({ type: 'logins' });
+    dispatch(uiActions.toggleBackdrop());
+    dispatch(uiActions.setLoginStatus());
+    dispatch(authActions.login({}))
   };
 
   const signUphandler = () => {
-    dispatch({ type: 'backdropOn' });
-    dispatch({ type: 'signups' });
+    dispatch(uiActions.toggleBackdrop());
+    dispatch(uiActions.setSignUpStatus());
   };
 
-  const testHandler = () => {
-    console.log(currentUser);
-  };
+  // const testHandler = () => {
+  // getData()(dispatch);
+  // console.log(test);
+  // };
 
   const themeChangeHandler = () => {
-    if (theme === 'dark') {
-      dispatch({ type: 'changeThemeBright' });
-    } else {
-      dispatch({ type: 'changeThemeDark' });
-    }
+dispatch(uiActions.toggleTheme());
   };
-
+  const settings = [{title: 'Profile', handler: profileHandler}, {title:'Logout', handler: logoutHandler}];
   return (
     <AppBar
       position='sticky'
@@ -195,8 +205,9 @@ const Header = (props) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}>
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign='center'>{setting}</Typography>
+                  <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
+                    <Typography textAlign='center' onClick=
+                    {setting.handler}>{setting.title}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -232,7 +243,7 @@ const Header = (props) => {
           <Box>
             <DarkSwitch onChange={themeChangeHandler} />
           </Box>
-          <Button onClick={testHandler}>test</Button>
+          {/* <Button onClick={testHandler}>test</Button> */}
         </Toolbar>
       </Container>
     </AppBar>

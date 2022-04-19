@@ -1,67 +1,173 @@
-import { createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-const defaultState = {
-  lang: 'EN',
-  theme: 'dark',
-  isLogined: false,
-  backdrop: false,
-  loginmodal: false,
-  sighupmodal: false,
-  users: [
-    { email: 1, pass: '123', name: '' },
-    { email: 2, pass: '456', name: '' },
-  ],
-  currentUser: '',
+const preloadedState = {
+  ui: {
+    lang: 'EN',
+    theme: 'dark',
+    backdrop: false,
+    loginmodal: false,
+    signupmodal: false,
+  },
+  auth: {
+    currentUser: '',
+    isLogined: false,
+    users: [
+      { email: 1, pass: '123', name: '' },
+      { email: 2, pass: '456', name: '' },
+    ],
+  },
+  recipes: {
+    chosenIngredients: '',
+    recipes: [],
+    loadingImgs: false,
+  },
 };
 
-const appReducer = (state = {}, action = 'INIT') => {
-  switch (action.type) {
-    case 'INIT':
-      return defaultState;
-    case 'changeThemeDark':
-      return { ...state, theme: 'dark' };
-    case 'changeThemeBright':
-      return { ...state, theme: 'bright' };
-    case 'backdropOn':
-      return { ...state, backdrop: true };
-    case 'backdropOff':
-      return { ...state, backdrop: false, loginmodal: false , sighupmodal: false};
-    case 'logins':
-      return { ...state, loginmodal: true };
-      case 'signups':
-        return {...state, loginmodal: false, sighupmodal: true,  }
-    case 'signupHandle':
-      console.log('hhui');
-      const temp = state.users;
-      temp.push({email: action.email, pass: action.pass, name: action.name})
-      return {
-        ...state,
-        users: temp
-      };
-    case 'loginHandle':
+const uiSlice = createSlice({
+  name: 'ui',
+  initialState: preloadedState.ui,
+  reducers: {
+    toggleTheme(state) {
+      console.log('done');
+      if (state.theme === 'dark') {
+        state.theme = 'bright';
+        return state;
+      }
+      state.theme = 'dark';
+      return state;
+    },
+    changeLang(state) {
+      if (state.lang === 'en') {
+        state.theme = 'he';
+        return state;
+      }
+      state.theme = 'en';
+      return state;
+    },
+    setLoginStatus(state) {
+      state.signupmodal = false;
+      state.loginmodal = true;
+      state.backdrop = true;
+      console.log('donelogin');
+      return state;
+    },
+    setSignUpStatus(state) {
+      state.loginmodal = false;
+      state.signupmodal = true;
+      state.backdrop = true;
+      console.log('donesignup');
+      return state;
+    },
+    setLoginSignUpOff(state) {
+      state.loginmodal = false;
+      state.signupmodal = false;
+      state.backdrop = false;
+      return state;
+    },
+    toggleBackdrop(state) {
+      console.log('done');
+      if (state.backdrop) {
+        state.backdrop = false;
+        state.loginmodal = false;
+        state.signupmodal = false;
+        return state;
+      }
+      state.backdrop = true;
+      return state;
+    },
+  },
+});
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: preloadedState.auth,
+  reducers: {
+    signup(state, action) {
+      state.users.push({
+        email: action.payload.email,
+        pass: action.payload.pass,
+        name: action.payload.name,
+      });
+      return state;
+    },
+    login(state, action) {
       if (
         state.users.find((el) => {
-          if (el.email == action.login) {
-            if (el.pass == action.pass){
+          if (el.email == action.payload.login) {
+            if (el.pass == action.payload.pass) {
               return true;
             }
           }
           return false;
         })
       ) {
-        localStorage.setItem('LOGGED_USER', action.login)
-        console.log(state.currentUser);
-        return { ...state, currentUser: action.login };
+        localStorage.setItem('LOGGED_USER', action.payload.login);
+        state.currentUser = {
+          login: action.payload.login,
+          name: action.payload.name,
+        };
+        return state;
       }
-      console.log('error');
+    },
+    logout(state) {
+      state.currentUser = '';
+      state.isLogined = false;
+      localStorage.removeItem('LOGGED_USER')
       return state;
-    default:
-      return state;
-  }
-  console.log(state.currentUser);
-  return state;
-};
+    },
+  },
+});
 
-const store = createStore(appReducer);
+const recipesSlice = createSlice({
+  name: 'recipes',
+  initialState: preloadedState.recipes,
+  reducers: {
+    setInredients(state, action) {
+      state.chosenIngredients = action.payload.ingredient.toString();
+      return state;
+    },
+    setRecipes(state, action) {
+      state.recipes = action.payload.data;
+      console.log(action.payload.data);
+      return state;
+    },
+    setLoading(state, action) {
+      state.loadingImgs = true;
+      console.log(state.loadingImgs);
+      return state;
+    },
+    setLoaded(state) {
+      state.loadingImgs = false;
+      console.log(state.loadingImgs);
+      return state;
+    },
+  },
+});
+
+const store = configureStore({
+  preloadedState,
+  reducer: {
+    ui: uiSlice.reducer,
+    auth: authSlice.reducer,
+    recipes: recipesSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+});
 
 export default store;
+
+export const authActions = authSlice.actions;
+export const uiActions = uiSlice.actions;
+export const recipesActions = recipesSlice.actions;
+
+// export const getData = () => async (dispatch) => {
+//   fetch('http://www.themealdb.com/api/json/v1/1/random.php')
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       dispatch({ type: 'test', test: data });
+//       console.log(data);
+//     });
+// };

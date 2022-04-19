@@ -17,20 +17,17 @@ import ListOfProducts from './components/Products/ListOfProducts'
 import Products from './components/Products/Products';
 import recipe1 from '../src/components/Recipes/img/recipe1.jpg';
 import recipe2 from '../src/components/Recipes/img/recipe2.jpg';
+import { uiActions } from './store/store';
 
 export const AppContext = React.createContext([]);
 
 function App() {
-  const backdrop = useSelector((store) => store.backdrop);
-  const logins = useSelector(store => store.loginmodal);
-  const sighups = useSelector(store => store.sighupmodal);
+  const backdrop = useSelector((store) => store.ui.backdrop);
+  const logins = useSelector(store => store.ui.loginmodal);
+  const signups = useSelector(store => store.ui.signupmodal);
   const dispatch = useDispatch();
-  const [currentProducts, setCurrentProducts] = React.useState([])
+  const [currentProducts, setCurrentProducts] = React.useState([]);
 
-  React.useEffect(() => {
-    dispatch({ type: 'INIT' });
-    dispatch({ type: 'changeThemeBright' });
-  }, []);
 
   const products = [
     { title: 'pork', type: 'meat', value: false },
@@ -73,12 +70,12 @@ function App() {
             transitionDuration: '0.5s',
           }}
           invisible={false}
-          onClick={() => dispatch({ type: 'backdropOff' })}
+          onClick={() => dispatch(uiActions.toggleBackdrop())}
         />,
         document.getElementById('backdrop-root')
       )}
       {ReactDOM.createPortal(<>{logins? <Login /> : null}</>, document.getElementById('modal-root'))}
-      {ReactDOM.createPortal(<>{sighups? <Signup /> : null}</>, document.getElementById('modal-root'))}
+      {ReactDOM.createPortal(<>{signups? <Signup /> : null}</>, document.getElementById('modal-root'))}
     </div>
     </AppContext.Provider>
   );
