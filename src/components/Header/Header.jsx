@@ -23,7 +23,7 @@ import { authActions, uiActions} from '../../store/store';
 
 
 const pages = ['Products', 'Recipes'];
-const settings = ['Profile', 'Logout'];
+
 
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -60,6 +60,14 @@ const Header = (props) => {
     });
   };
 
+  const logoutHandler = () =>{
+    dispatch(authActions.logout())
+  }
+
+  const profileHandler = () =>{
+    console.log('profile');
+  }
+
   React.useEffect(() => {
     if (currentUser !== '') {
       setLogged(true);
@@ -71,6 +79,7 @@ const Header = (props) => {
   const loginHandler = () => {
     dispatch(uiActions.toggleBackdrop());
     dispatch(uiActions.setLoginStatus());
+    dispatch(authActions.login({}))
   };
 
   const signUphandler = () => {
@@ -86,7 +95,7 @@ const Header = (props) => {
   const themeChangeHandler = () => {
 dispatch(uiActions.toggleTheme());
   };
-
+  const settings = [{title: 'Profile', handler: profileHandler}, {title:'Logout', handler: logoutHandler}];
   return (
     <AppBar
       position='sticky'
@@ -196,8 +205,9 @@ dispatch(uiActions.toggleTheme());
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}>
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign='center'>{setting}</Typography>
+                  <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
+                    <Typography textAlign='center' onClick=
+                    {setting.handler}>{setting.title}</Typography>
                   </MenuItem>
                 ))}
               </Menu>

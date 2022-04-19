@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { authActions, uiActions } from '../../store/store';
 
 export default function Signup() {
 
@@ -28,7 +29,8 @@ export default function Signup() {
     }
 
     if(password === submitpassword) {
-    dispatch({type: 'signupHandle', email: email, pass:password, name: name});
+    dispatch(authActions.signup({email:email,pass: password,name: name}));
+    dispatch(uiActions.setLoginSignUpOff());
     console.log(users);
     return;
     }

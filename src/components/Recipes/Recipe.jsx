@@ -71,14 +71,14 @@ export default function Recipe() {
                 title={recipe.title}
                 subheader='September 14, 2016'
               />
-              <LazyLoadImage alt={recipe.title} src={img} effect='blur' />
-              {/* {loading ? (
+              {/* <LazyLoadImage alt={recipe.title} src={img} effect='blur' /> */}
+              {loading ? (
                 <Skeleton variant='rectangular' width='100%'>
                   <div style={{ paddingTop: '57%' }} />
                 </Skeleton>
               ) : (
                 <LazyLoadImage alt={recipe.title} src={img} effect='blur'/>
-              )} */}
+              )}
               <CardContent>
                 <Typography variant='body2' color='text.secondary'>
                   {recipe.description}

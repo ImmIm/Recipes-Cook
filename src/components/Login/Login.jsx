@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import GoogleLogo from '../../Assets/svg/GoogleLogo';
 import user from './testLogin';
 import { useDispatch, useSelector } from 'react-redux';
+import { authActions, uiActions } from '../../store/store';
 
 export default function Login() {
 
@@ -14,18 +15,19 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [opacity, setOpacity] = useState(0);
   const [username, setUserName] = useState('');
-  const user = useSelector(state => state.currentUser);
+  const user = useSelector(state => state.auth.currentUser);
   const dispatch = useDispatch();
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    if (email.trim().length === false || password.trim().length === false) {
+    if (email.trim().length === 0 || password.trim().length === 0) {
       console.log('checking validity');
       alert('Please fill out all fields');
       return;
     }
     
-    dispatch({type: 'loginHandle', login: email, pass: password});
+    dispatch(authActions.login({login:email, pass:password, name: username}));
+    dispatch(uiActions.setLoginSignUpOff());
     
     setUserName(user);
 
