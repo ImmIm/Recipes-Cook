@@ -1,22 +1,18 @@
 import { Box, Button, Container } from '@mui/material';
 import React from 'react';
-import HomepageMainJpg from '../../Assets/Imgs/HomepageMainJpg.jpg';
 import Search from '../Products/Search';
 import HomePageSearch from './HomePageSearch';
+import { useSelector } from 'react-redux';
 
 function HomepageHero() {
+
+  const theme = useSelector(state => state.ui.theme);
   return (
     <section>
       <Container
         maxWidth='1920px'
-        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px', width: '100%', backgroundColor: '#31708E' }}
+        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px', width: '100vw',height: '100vh', backgroundColor: '#31708E', overflow: 'hidden', backgroundColor: theme === 'bright' ? '#E7DBC6' : '#000000'}}
         disableGutters>
-        <img
-          src={HomepageMainJpg}
-          alt='Food'
-          padding='0px'
-          style={{ width: '100%',height: '100%', maxWidth: '1920px', overflow: 'hidden'}}
-        />
         <Box
           sx={{
             position: 'absolute',

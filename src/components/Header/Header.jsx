@@ -18,12 +18,9 @@ import DarkSwitch from '../UI/DarkSwitch';
 import FlagIL from '../../Assets/svg/FlagIL';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {getData} from '../../store/store';
-import { authActions, uiActions} from '../../store/store';
-
+import { authActions, uiActions } from '../../store/store';
 
 const pages = ['Products', 'Recipes'];
-
 
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -34,7 +31,6 @@ const Header = (props) => {
   const [logged, setLogged] = React.useState(false);
   const backdrop = useSelector((store) => store.ui.backdrop);
   const dispatch = useDispatch();
-  // const test = useSelector(store => store.test)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -60,13 +56,13 @@ const Header = (props) => {
     });
   };
 
-  const logoutHandler = () =>{
-    dispatch(authActions.logout())
-  }
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
+  };
 
-  const profileHandler = () =>{
+  const profileHandler = () => {
     console.log('profile');
-  }
+  };
 
   React.useEffect(() => {
     if (currentUser !== '') {
@@ -79,7 +75,7 @@ const Header = (props) => {
   const loginHandler = () => {
     dispatch(uiActions.toggleBackdrop());
     dispatch(uiActions.setLoginStatus());
-    dispatch(authActions.login({}))
+    dispatch(authActions.login({}));
   };
 
   const signUphandler = () => {
@@ -93,17 +89,20 @@ const Header = (props) => {
   // };
 
   const themeChangeHandler = () => {
-dispatch(uiActions.toggleTheme());
+    dispatch(uiActions.toggleTheme());
   };
-  const settings = [{title: 'Profile', handler: profileHandler}, {title:'Logout', handler: logoutHandler}];
+  const settings = [
+    { title: 'Profile', handler: profileHandler },
+    { title: 'Logout', handler: logoutHandler },
+  ];
   return (
     <AppBar
-      position='sticky'
+      position='fixed'
       sx={{
         maxWidth: '1920px',
         margin: '0 auto',
-        backgroundColor: theme === 'bright' ? '#8EC77F' : '#31708E',
-        textColor: '#F7F9FB',
+        backgroundColor: theme === 'bright' ? 'transparent' : '#31708E',
+        textColor: theme === 'bright' ? '#000000' : '#31708E',
         transition: 'ease',
         transitionDuration: '0.3s',
         zIndex: '10000',
@@ -119,11 +118,11 @@ dispatch(uiActions.toggleTheme());
             component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
             <Link to='/Recipes-Cook'>
-              <AppLogo />
+              <AppLogo theme={theme}/>
             </Link>
           </Typography>
           {/* Links */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, color: theme === 'bright' ? '#000000' : '#FFFFFF'}}>
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -150,6 +149,13 @@ dispatch(uiActions.toggleTheme());
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}>
+              <MenuItem key={'home'}>
+                <Link
+                  to={`Recipes-Cook/`}
+                  style={{ textDecoration: 'none' }}>
+                  Home
+                </Link>
+              </MenuItem>
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Link
@@ -165,7 +171,10 @@ dispatch(uiActions.toggleTheme());
             variant='h6'
             noWrap
             component='div'
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', s: 'flex', md: 'none' },
+            }}>
             Recipies & Cook
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -176,7 +185,7 @@ dispatch(uiActions.toggleTheme());
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}>
+                  sx={{ my: 2, color: theme === 'bright' ? '#000000' : '#F7F9FB', display: 'block' }}>
                   {page}
                 </Button>
               </Link>
@@ -186,7 +195,7 @@ dispatch(uiActions.toggleTheme());
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='Open settings'>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar>{currentUser.name}</Avatar>
+                  <Avatar>{currentUser.name}</Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -206,8 +215,9 @@ dispatch(uiActions.toggleTheme());
                 onClose={handleCloseUserMenu}>
                 {settings.map((setting) => (
                   <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
-                    <Typography textAlign='center' onClick=
-                    {setting.handler}>{setting.title}</Typography>
+                    <Typography textAlign='center' onClick={setting.handler}>
+                      {setting.title}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -218,11 +228,11 @@ dispatch(uiActions.toggleTheme());
                 variant='text'
                 aria-label='text button group'
                 sx={{ borderColor: '#F7F9FB' }}>
-                <Button sx={{ color: '#F7F9FB' }} onClick={loginHandler}>
+                <Button sx={{ color: theme === 'bright' ? '#000000' : '#F7F9FB' }} onClick={loginHandler}>
                   Login
                 </Button>
                 {/* <Link to="Recipes-Cook/login" style={{textDecoration: 'none'}}></Link> */}
-                <Button sx={{ color: '#F7F9FB' }} onClick={signUphandler}>
+                <Button sx={{ color:  theme === 'bright' ? '#000000' : '#F7F9FB' }} onClick={signUphandler}>
                   Sigh up
                 </Button>
               </ButtonGroup>
@@ -241,7 +251,7 @@ dispatch(uiActions.toggleTheme());
             )}
           </Box>
           <Box>
-            <DarkSwitch onChange={themeChangeHandler} />
+            <DarkSwitch onChange={themeChangeHandler} defaultChecked/>
           </Box>
           {/* <Button onClick={testHandler}>test</Button> */}
         </Toolbar>
