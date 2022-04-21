@@ -17,7 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
 import { recipesActions } from '../../store/store';
-import { Skeleton } from '@mui/material';
+import { Grid, Skeleton } from '@mui/material';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -51,92 +51,53 @@ export default function Recipe() {
   dispatch(recipesActions.setInredients({ ingredient: currentProducts }));
 
   return (
-    <>
-      {recipes.map((recipe) => {
+    <Grid container spacing={2} sx={{padding: '10px'}}>
+ {recipes.map((recipe) => {
         const img = recipe.image;
         return (
-          <div className='recipe' key={recipe.title}>
-            <Card sx={{ margin: '10px 0' }}>
-              <CardHeader
-                avatar={
-                  <Avatar sx={{ bgcolor: red[500] }} aria-label='recipe'>
-                    R
-                  </Avatar>
-                }
-                action={
-                  <IconButton aria-label='settings'>
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title={recipe.title}
-                subheader='September 14, 2016'
-              />
-              {/* <LazyLoadImage alt={recipe.title} src={img} effect='blur' /> */}
-              {loading ? (
-                <Skeleton variant='rectangular' width='100%'>
-                  <div style={{ paddingTop: '57%' }} />
-                </Skeleton>
-              ) : (
-                <LazyLoadImage alt={recipe.title} src={img} effect='blur'/>
-              )}
-              <CardContent>
-                <Typography variant='body2' color='text.secondary'>
-                  {recipe.description}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <IconButton aria-label='add to favorites'>
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label='share'>
-                  <ShareIcon />
-                </IconButton>
-                <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label='show more'>
-                  <ExpandMoreIcon />
-                </ExpandMore>
-              </CardActions>
-              <Collapse in={expanded} timeout='auto' unmountOnExit>
+          <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+            <div className='recipe' key={recipe.title}>
+              <Card>
+                <CardHeader
+                  avatar={
+                    <Avatar sx={{ bgcolor: red[500]}} aria-label='recipe'>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label='settings'>
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  sx={{height: '100px'}}
+                  title={recipe.title}
+                  subheader='September 14, 2016'
+                />
+                {/* <LazyLoadImage alt={recipe.title} src={img} effect='blur' /> */}
+                {loading ? (
+                  <Skeleton variant='rectangular' width='100%'>
+                    <div style={{ paddingTop: '57%' }} />
+                  </Skeleton>
+                ) : (
+                  <LazyLoadImage alt={recipe.title} src={img} effect='blur'  />
+                )}
                 <CardContent>
-                  <Typography paragraph>Method:</Typography>
-                  <Typography paragraph>
-                    Heat 1/2 cup of the broth in a pot until simmering, add
-                    saffron and set aside for 10 minutes.
-                  </Typography>
-                  <Typography paragraph>
-                    Heat oil in a (14- to 16-inch) paella pan or a large, deep
-                    skillet over medium-high heat. Add chicken, shrimp and
-                    chorizo, and cook, stirring occasionally until lightly
-                    browned, 6 to 8 minutes. Transfer shrimp to a large plate
-                    and set aside, leaving chicken and chorizo in the pan. Add
-                    pimentón, bay leaves, garlic, tomatoes, onion, salt and
-                    pepper, and cook, stirring often until thickened and
-                    fragrant, about 10 minutes. Add saffron broth and remaining
-                    4 1/2 cups chicken broth; bring to a boil.
-                  </Typography>
-                  <Typography paragraph>
-                    Add rice and stir very gently to distribute. Top with
-                    artichokes and peppers, and cook without stirring, until
-                    most of the liquid is absorbed, 15 to 18 minutes. Reduce
-                    heat to medium-low, add reserved shrimp and mussels, tucking
-                    them down into the rice, and cook again without stirring,
-                    until mussels have opened and rice is just tender, 5 to 7
-                    minutes more. (Discard any mussels that don&apos;t open.)
-                  </Typography>
-                  <Typography>
-                    Set aside off of the heat to let rest for 10 minutes, and
-                    then serve.
+                  <Typography variant='body2' color='text.secondary'>
+                    {recipe.description}
                   </Typography>
                 </CardContent>
-              </Collapse>
-            </Card>
-          </div>
-        );
-      })}
-    </>
+                <CardActions disableSpacing>
+                  <IconButton aria-label='add to favorites'>
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton aria-label='share'>
+                    <ShareIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
+            </div>
+          </Grid>)})}
+    </Grid>
   );
 }
 

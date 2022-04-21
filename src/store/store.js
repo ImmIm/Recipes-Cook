@@ -4,7 +4,7 @@ import { createSlice, configureStore } from '@reduxjs/toolkit';
 const preloadedState = {
   ui: {
     lang: 'EN',
-    theme: 'dark',
+    theme: 'bright',
     backdrop: false,
     loginmodal: false,
     signupmodal: false,

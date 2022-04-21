@@ -6,9 +6,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url(./Assets/Background/vecteezy_set-of-icons-on-the-theme-of-food-food-vector-doodle_3662775.jpg);
+  background-color: #E7DBC6;
   background-repeat: repeat;
   
+}
+
+html{
+
 }
 
 code {

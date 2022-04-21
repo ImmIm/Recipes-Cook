@@ -15,9 +15,8 @@ import Signup from './components/Registration/Signup';
 import { Search } from '@mui/icons-material';
 import ListOfProducts from './components/Products/ListOfProducts'
 import Products from './components/Products/Products';
-import recipe1 from '../src/components/Recipes/img/recipe1.jpg';
-import recipe2 from '../src/components/Recipes/img/recipe2.jpg';
 import { uiActions } from './store/store';
+import Recipes from './components/Recipes/Recipes';
 
 export const AppContext = React.createContext([]);
 
@@ -40,8 +39,8 @@ function App() {
   ];
 
     const recipes = [
-        {title: 'Apple with Garlic', img: <img src={recipe1} alt={"Recipe 1"}/>, description: 'Apple with garlic', ingredient: ['garlic', 'apple', 'orange']},
-        {title: 'Lumb with orange', img: <img src={recipe2} alt={"Recipe 2"}/>, description: 'Lumb with orange', ingredient: ['lumb', 'apple', 'orange']},
+        {title: 'Apple with Garlic', img: <img src={''} alt={"Recipe 1"}/>, description: 'Apple with garlic', ingredient: ['garlic', 'apple', 'orange']},
+        {title: 'Lumb with orange', img: <img src={''} alt={"Recipe 2"}/>, description: 'Lumb with orange', ingredient: ['lumb', 'apple', 'orange']},
     ];
 
   return (
@@ -58,6 +57,7 @@ function App() {
         <Route path='/Recipes-Cook' element={<Homepage />} />
         <Route path='/Recipes-Cook/Signup' element={<Signup />} />
         <Route path='/Recipes-Cook/Products' element={<Products />} />
+        <Route path='/Recipes-Cook/Recipes' element={<Recipes/>} />
 
       </Routes>
       {ReactDOM.createPortal(

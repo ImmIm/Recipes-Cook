@@ -81,7 +81,7 @@ export default function ListOfProducts() {
 
   const getData = (products) => async (dispatch) => {
     if (products) {
-      fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(",+")}&number=2&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`)
+      fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(",+")}&number=12&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`)
         .then(function (response) {
           return response.json();
         })
