@@ -103,7 +103,7 @@ const Header = (props) => {
       sx={{
         maxWidth: '1920px',
         margin: '0 auto',
-        backgroundColor: theme === 'bright' ? 'transparent' : '#31708E',
+        backgroundColor: theme === 'bright' ? '#E7DBC6' : '#31708E',
         textColor: theme === 'bright' ? '#000000' : '#31708E',
         transition: 'ease',
         transitionDuration: '0.3s',

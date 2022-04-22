@@ -54,17 +54,15 @@ export default function ListOfProducts() {
   const [expanded, setExpanded] = React.useState('');
   const [expanded1, setExpanded1] = React.useState('');
   const [expanded2, setExpanded2] = React.useState('');
+  const [expanded3, setExpanded3] = React.useState('');
+  const [expanded4, setExpanded4] = React.useState('');
+  const [expanded5, setExpanded5] = React.useState('');
   const dispatch = useDispatch();
 
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
+  const handleChange = (panel, handler) => (event, newExpanded) => {
+    handler(newExpanded ? panel : false);
   };
-  const handleChange1 = (panel) => (event, newExpanded) => {
-    setExpanded1(newExpanded ? panel : false);
-  };
-  const handleChange2 = (panel) => (event, newExpanded) => {
-    setExpanded2(newExpanded ? panel : false);
-  };
+
   const searchHandler = () => {
     context.setCurrentProducts((prev) => {
       return [
@@ -115,7 +113,7 @@ export default function ListOfProducts() {
     <div className='products'>
       <Accordion
         expanded={expanded === 'panel1'}
-        onChange={handleChange('panel1')}>
+        onChange={handleChange('panel1', setExpanded)}>
         <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
           <Typography>Meat</Typography>
         </AccordionSummary>
@@ -145,7 +143,7 @@ export default function ListOfProducts() {
       </Accordion>
       <Accordion
         expanded={expanded1 === 'panel2'}
-        onChange={handleChange1('panel2')}>
+        onChange={handleChange('panel2', setExpanded1)}>
         <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
           <Typography>Fruits</Typography>
         </AccordionSummary>
@@ -175,7 +173,7 @@ export default function ListOfProducts() {
       </Accordion>
       <Accordion
         expanded={expanded2 === 'panel3'}
-        onChange={handleChange2('panel3')}>
+        onChange={handleChange('panel3', setExpanded2)}>
         <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
           <Typography>Vegetables</Typography>
         </AccordionSummary>
@@ -183,6 +181,96 @@ export default function ListOfProducts() {
           <Typography>
             {context.products
               .filter((e) => e.type === 'vegetables')
+              .map((e) => {
+                return (
+                  <span key={e.title}>
+                    <Button
+                      variant='outlined'
+                      style={{ background: e.value == true ? 'pink' : 'white' }}
+                      onClick={(b) => {
+                        b.target.style.background === 'white'
+                          ? (b.target.style.background = 'pink')
+                          : (b.target.style.background = 'white');
+                        e.value = !e.value;
+                      }}>
+                      {e.title}
+                    </Button>
+                  </span>
+                );
+              })}
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded3 === 'panel4'}
+        onChange={handleChange('panel4', setExpanded3)}>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+          <Typography>Pasta</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            {context.products
+              .filter((e) => e.type === 'pasta')
+              .map((e) => {
+                return (
+                  <span key={e.title}>
+                    <Button
+                      variant='outlined'
+                      style={{ background: e.value == true ? 'pink' : 'white' }}
+                      onClick={(b) => {
+                        b.target.style.background === 'white'
+                          ? (b.target.style.background = 'pink')
+                          : (b.target.style.background = 'white');
+                        e.value = !e.value;
+                      }}>
+                      {e.title}
+                    </Button>
+                  </span>
+                );
+              })}
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded4 === 'panel5'}
+        onChange={handleChange('panel5', setExpanded4)}>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+          <Typography>Groats</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            {context.products
+              .filter((e) => e.type === 'groats')
+              .map((e) => {
+                return (
+                  <span key={e.title}>
+                    <Button
+                      variant='outlined'
+                      style={{ background: e.value == true ? 'pink' : 'white' }}
+                      onClick={(b) => {
+                        b.target.style.background === 'white'
+                          ? (b.target.style.background = 'pink')
+                          : (b.target.style.background = 'white');
+                        e.value = !e.value;
+                      }}>
+                      {e.title}
+                    </Button>
+                  </span>
+                );
+              })}
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded5 === 'panel6'}
+        onChange={handleChange('panel6', setExpanded5)}>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+          <Typography>Fish</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            {context.products
+              .filter((e) => e.type === 'fish')
               .map((e) => {
                 return (
                   <span key={e.title}>
