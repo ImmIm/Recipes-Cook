@@ -21,8 +21,87 @@ const preloadedState = {
     chosenIngredients: '',
     recipes: [],
     loadingImgs: false,
+    diets: [
+      {
+        name: 'Gluten Free',
+        description:
+          'Eliminating gluten means avoiding wheat, barley, rye, and other gluten-containing grains and foods made from them (or that may have been cross contaminated).',
+        set: false,
+      },
+      {
+        name: 'Ketogenic',
+        description:
+          'The keto diet is based more on the ratio of fat, protein, and carbs in the diet rather than specific ingredients. Generally speaking, high fat, protein-rich foods are acceptable and high carbohydrate foods are not. The formula we use is 55-80% fat content, 15-35% protein content, and under 10% of carbohydrates.',
+        set: false,
+      },
+      {
+        name: 'Vegetarian',
+        description:
+          'No ingredients may contain meat or meat by-products, such as bones or gelatin.',
+        set: false,
+      },
+      {
+        name: 'Vegan',
+        description:
+          'No ingredients may contain meat or meat by-products, such as bones or gelatin, nor may they contain eggs, dairy, or honey.',
+        set: false,
+      },
+      {
+        name: 'Paleo',
+        description:
+          'Allowed ingredients include meat (especially grass fed), fish, eggs, vegetables, some oils (e.g. coconut and olive oil), and in smaller quantities, fruit, nuts, and sweet potatoes. We also allow honey and maple syrup (popular in Paleo desserts, but strict Paleo followers may disagree). Ingredients not allowed include legumes (e.g. beans and lentils), grains, dairy, refined sugar, and processed foods.',
+        set: false,
+      },
+    ],
+    cuisines: [
+      { name: 'African', set: false },
+      { name: 'American', set: false },
+      { name: 'British', set: false },
+      { name: 'Cajun', set: false },
+      { name: 'Caribbean', set: false },
+      { name: 'Chinese', set: false },
+      { name: 'Eastern European', set: false },
+      { name: 'European', set: false },
+      { name: 'French', set: false },
+      { name: 'German', set: false },
+      { name: 'Greek', set: false },
+      { name: 'Indian', set: false },
+      { name: 'Irish', set: false },
+      { name: 'Italian', set: false },
+      { name: 'Japanese', set: false },
+      { name: 'Jewish', set: false },
+      { name: 'Korean', set: false },
+      { name: 'Latin American', set: false },
+      { name: 'Mediterranean', set: false },
+      { name: 'Mexican', set: false },
+      { name: 'Middle Eastern', set: false },
+      { name: 'Nordic', set: false },
+      { name: 'Southern', set: false },
+      { name: 'Spanish', set: false },
+      { name: 'Thai', set: false },
+      { name: 'Vietnamese', set: false },
+    ],
+    mealType: [
+      { name: 'main course', set: false },
+      { name: 'side dish', set: false },
+      { name: 'dessert', set: false },
+      { name: 'appetizer', set: false },
+      { name: 'salad', set: false },
+      { name: 'bread', set: false },
+      { name: 'breakfast', set: false },
+      { name: 'soup', set: false },
+      { name: 'beverage', set: false },
+      { name: 'sauce', set: false },
+      { name: 'marinade', set: false },
+      { name: 'fingerfood', set: false },
+      { name: 'snack', set: false },
+      { name: 'drink', set: false },
+    ],
   },
+ 
 };
+
+
 
 const uiSlice = createSlice({
   name: 'ui',
@@ -113,7 +192,7 @@ const authSlice = createSlice({
     logout(state) {
       state.currentUser = '';
       state.isLogined = false;
-      localStorage.removeItem('LOGGED_USER')
+      localStorage.removeItem('LOGGED_USER');
       return state;
     },
   },
@@ -140,6 +219,12 @@ const recipesSlice = createSlice({
     setLoaded(state) {
       state.loadingImgs = false;
       console.log(state.loadingImgs);
+      return state;
+    },
+    setSelectedDiet(state, action) {
+      state.diets[{ name: action.payload.name }].set =
+        !state.diets[{ name: action.payload.name }].set;
+      console.log(state.diets[{ name: action.payload.name }]);
       return state;
     },
   },
