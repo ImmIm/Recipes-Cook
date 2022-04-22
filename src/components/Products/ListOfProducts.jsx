@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { recipesActions } from '../../store/store';
 import store from '../../store/store';
+import errorImg from '../../Assets/Imgs/error402.jpg';
+import { Container } from '@mui/material';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -51,6 +53,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function ListOfProducts() {
   const context = useContext(AppContext);
+  const theme = useSelector(state => state.ui.theme);
   const [expanded, setExpanded] = React.useState('');
   const [expanded1, setExpanded1] = React.useState('');
   const [expanded2, setExpanded2] = React.useState('');
@@ -65,16 +68,27 @@ export default function ListOfProducts() {
 
   const searchHandler = () => {
     context.setCurrentProducts((prev) => {
+      console.log(context.products);
       return [
         ...prev,
         ...context.products
-          .filter((e) => e.value == true)
+          .filter((e) => e.value === true)
           .map((e) => {
             return e.title;
           }),
       ];
     });
   };
+
+  const noneRecipe = [
+    {
+      id: 'test',
+      title: 'Sorry. we"ve out of points :C',
+      image: 'https://m.buro247.ua/images/2017/09/insta-of-the-week-sad-cat-luhu-17.jpg',
+      description: 'Error 402',
+      ingredient: ['garlic', 'apple', 'orange'],
+    },
+  ];
 
   React.useEffect(() => {
     if (context.currentProducts !== []) {
@@ -83,44 +97,48 @@ export default function ListOfProducts() {
     }
   }, [context.currentProducts, dispatch]);
 
+
+  // 5a0abc362e76484ba29eeb96b16641a7
+  // 8dbf3f3eb9894749829f44b3ea57a34d
   const getData = (products) => async (dispatch) => {
-    console.log(products);
     if (products.length === 0) {
       return;
     }
-    try {
-      fetch(
-        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(
-          ',+'
-        )}&number=12&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`
-      )
+    fetch(
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.map(
+        (el) => el + ',+'
+      )}&number=2&ignorePantry=true&apiKey=5a0abc362e76484ba29eeb96b16641a7`
+    )
       .then(function (response) {
         return response.json();
       })
       .then(function (data) {
+        if (data.status === 'failure') {
+          dispatch(recipesActions.setRecipes({ data: noneRecipe }));
+          dispatch(recipesActions.setLoaded());
+          return;
+        }
         dispatch(recipesActions.setRecipes({ data: data }));
         dispatch(recipesActions.setLoaded());
+      })
+      .catch((err) => {
+        console.error(err.message);
       });
-      return;
-    } catch (error) {
-      dispatch(recipesActions.setRecipes({data: ''}))
-      dispatch(recipesActions.setLoaded());
-      console.error(error);
-    }
-    
+    return;
   };
+
   return (
-    <div className='products'>
+    <Container className='products' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#31708E'}}>
       <Accordion
         expanded={expanded === 'panel1'}
         onChange={handleChange('panel1', setExpanded)}>
-        <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
+        <AccordionSummary aria-controls='panel1d-content' id='panel1d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Meat</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
             {context.products
-              .filter((e) => e.type === 'meat')
+              .filter((el) => el.type === 'meat')
               .map((e) => {
                 return (
                   <span key={e.title}>
@@ -144,7 +162,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded1 === 'panel2'}
         onChange={handleChange('panel2', setExpanded1)}>
-        <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
+        <AccordionSummary aria-controls='panel2d-content' id='panel2d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Fruits</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -174,7 +192,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded2 === 'panel3'}
         onChange={handleChange('panel3', setExpanded2)}>
-        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Vegetables</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -204,7 +222,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded3 === 'panel4'}
         onChange={handleChange('panel4', setExpanded3)}>
-        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Pasta</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -234,7 +252,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded4 === 'panel5'}
         onChange={handleChange('panel5', setExpanded4)}>
-        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Groats</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -264,7 +282,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded5 === 'panel6'}
         onChange={handleChange('panel6', setExpanded5)}>
-        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Fish</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -294,6 +312,6 @@ export default function ListOfProducts() {
       <Button variant='contained' onClick={searchHandler}>
         Search
       </Button>
-    </div>
+    </Container>
   );
 }

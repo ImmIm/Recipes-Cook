@@ -8,6 +8,7 @@ const preloadedState = {
     backdrop: false,
     loginmodal: false,
     signupmodal: false,
+    recipemodal: false
   },
   auth: {
     currentUser: '',
@@ -20,6 +21,9 @@ const preloadedState = {
   recipes: {
     chosenIngredients: '',
     recipes: [],
+    filteredRecipes: [],
+    randomRecipes: [],
+    oneRecipe: {},
     loadingImgs: false,
     diets: [
       {
@@ -108,11 +112,12 @@ const uiSlice = createSlice({
   initialState: preloadedState.ui,
   reducers: {
     toggleTheme(state) {
-      console.log('done');
       if (state.theme === 'dark') {
         state.theme = 'bright';
+        document.body.style.backgroundColor = '#E7DBC6';
         return state;
       }
+      document.body.style.backgroundColor = '#31708E';
       state.theme = 'dark';
       return state;
     },
@@ -128,33 +133,40 @@ const uiSlice = createSlice({
       state.signupmodal = false;
       state.loginmodal = true;
       state.backdrop = true;
-      console.log('donelogin');
       return state;
     },
     setSignUpStatus(state) {
       state.loginmodal = false;
       state.signupmodal = true;
       state.backdrop = true;
-      console.log('donesignup');
       return state;
     },
     setLoginSignUpOff(state) {
       state.loginmodal = false;
       state.signupmodal = false;
+      state.recipemodal = false;
       state.backdrop = false;
       return state;
     },
     toggleBackdrop(state) {
-      console.log('done');
+      console.log('action');
       if (state.backdrop) {
         state.backdrop = false;
         state.loginmodal = false;
         state.signupmodal = false;
+        state.recipemodal = false
         return state;
       }
       state.backdrop = true;
       return state;
     },
+    setRecipeModal(state){
+      state.loginmodal = false;
+      state.signupmodal = false;
+      state.recipemodal = true;
+      state.backdrop = true;
+      return state;
+    }
   },
 });
 
@@ -208,7 +220,15 @@ const recipesSlice = createSlice({
     },
     setRecipes(state, action) {
       state.recipes = action.payload.data;
-      console.log(action.payload.data);
+      return state;
+    },
+    setFilteredRecipes(state, action) {
+      state.filteredRecipes = action.payload.data;
+      return state;
+    },
+    setRandomedRecipes(state, action){
+      console.log(action.payload.data['recipes']);
+      state.randomRecipes = action.payload.data['recipes'];
       return state;
     },
     setLoading(state, action) {
@@ -218,7 +238,6 @@ const recipesSlice = createSlice({
     },
     setLoaded(state) {
       state.loadingImgs = false;
-      console.log(state.loadingImgs);
       return state;
     },
     setSelectedDiet(state, action) {
@@ -227,6 +246,12 @@ const recipesSlice = createSlice({
       console.log(state.diets[{ name: action.payload.name }]);
       return state;
     },
+    setOneRecipe(state, action){
+      state.oneRecipe = action.payload.recipe;
+      console.log('setted one recipe');
+      console.log(state.oneRecipe);
+      return state;
+    }
   },
 });
 

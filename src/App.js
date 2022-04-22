@@ -17,6 +17,7 @@ import ListOfProducts from './components/Products/ListOfProducts'
 import Products from './components/Products/Products';
 import { uiActions } from './store/store';
 import Recipes from './components/Recipes/Recipes';
+import OneRecipe from './components/Recipes/OneRecipe';
 
 export const AppContext = React.createContext([]);
 
@@ -24,6 +25,8 @@ function App() {
   const backdrop = useSelector((store) => store.ui.backdrop);
   const logins = useSelector(store => store.ui.loginmodal);
   const signups = useSelector(store => store.ui.signupmodal);
+  const recipeOn = useSelector(store=> store.ui.recipemodal);
+  const recipeDetails = useSelector(store => store.recipes.oneRecipe)
   const dispatch = useDispatch();
   const [currentProducts, setCurrentProducts] = React.useState([]);
 
@@ -111,6 +114,7 @@ function App() {
       )}
       {ReactDOM.createPortal(<>{logins? <Login /> : null}</>, document.getElementById('modal-root'))}
       {ReactDOM.createPortal(<>{signups? <Signup /> : null}</>, document.getElementById('modal-root'))}
+      {ReactDOM.createPortal(<>{recipeOn? <OneRecipe recipe={recipeDetails}/> : null}</>, document.getElementById('modal-root'))}
     </div>
     </AppContext.Provider>
   );

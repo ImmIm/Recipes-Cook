@@ -12,7 +12,7 @@ function HomepageHero() {
     <section>
       <Container
         maxWidth='1920px'
-        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px',height: '100vh', overflow: 'hidden', backgroundColor: theme === 'bright' ? '#E7DBC6' : '#000000'}}
+        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px',height: '100vh', overflow: 'hidden', backgroundColor: theme === 'bright' ? '#E7DBC6' : '#31708E'}}
         disableGutters>
         <Box
           sx={{
