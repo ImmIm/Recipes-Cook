@@ -1,61 +1,61 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
 import Icon from '@mui/material/Icon';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const WrappedIcon = (props) => <Icon {...props} />;
 
 WrappedIcon.muiName = 'Icon';
 
-export default function OneRecipe() {
+
+
+export default function OneRecipe(props) {
+
+  console.log(props.recipe);
+
   return (
-    <Card sx={{ marginTop: '10px', marginRight: '15px' }}>
+    <Card
+      sx={{
+        marginTop: '10px',
+        marginRight: '15px',
+        zIndex: '1000',
+        maxWidth: '70%',
+        width: '100%',
+        height: '70%',
+        margin: '0 auto',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '25px',
+        position: 'fixed'
+      }}>
       <Grid container spacing={2} sx={{ padding: '10px' }}>
         <Grid item xs={6}>
-          <p>asdfgh</p>
+          <p>{props.recipe.title}</p>
         </Grid>
         <Grid item xs={6}>
-          <CardMedia
-            component='img'
-            height='140'
-            image='https://img.povar.ru/main/be/c2/6d/28/veprevo_koleno-356748.JPG'
-            alt='green iguana'
-          />
+        <LazyLoadImage
+                alt={props.recipe.title}
+                src={props.recipe.image}
+                effect='blur'
+                style={{ width: '100%', padding: '5px', margin: '0 auto' }}
+              />
         </Grid>
         <Grid item xs={6}></Grid>
         <Grid item xs={6}>
           <Typography gutterBottom variant='h5' component='div'>
-            Вепрево колено
+            {props.recipe.title}
           </Typography>
           <Icon>alarm</Icon>
+          <span>{props.recipe.readyInMinutes}</span>
         </Grid>
-        <Grid item sx={12}>
+        <Grid item xs={12}>
           <Typography variant='body2' color='text.secondary'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit
-            amet commodo leo. Proin sed sagittis tellus. Etiam rhoncus, nibh
-            volutpat ultrices hendrerit, dolor enim fringilla dolor, vitae
-            accumsan turpis nulla vel nisl. Etiam id dapibus lorem, ut consequat
-            dolor. Class aptent taciti sociosqu ad litora torquent per conubia
-            nostra, per inceptos himenaeos. Fusce dignissim sagittis dictum.
-            Etiam elementum vestibulum sem, et egestas tortor maximus quis.
-            Maecenas quis vulputate enim, nec cursus nunc. Quisque vitae risus
-            tempus, porttitor orci eget, ultricies orci. Maecenas sit amet
-            tristique ex, sit amet dictum ipsum. Fusce hendrerit ultrices leo ut
-            venenatis. Sed tincidunt tortor nec elit pharetra commodo. Donec
-            vitae ultricies ex. Aliquam consectetur est vel porta pretium. Cras
-            porttitor dictum sem, a interdum erat semper ac. Pellentesque justo
-            justo, consectetur eu ligula dapibus, molestie tempus elit. Maecenas
-            feugiat ante odio, sit amet pellentesque nunc condimentum in. Nam
-            posuere aliquam iaculis. Morbi dignissim leo et ipsum eleifend, quis
-            commodo ipsum aliquet. Maecenas id leo ex. Nulla nisl dolor,
-            efficitur at imperdiet id, imperdiet ac purus. Mauris euismod eu
-            urna id interdum. Cras mauris nunc, semper in tortor sit amet,
-            tempus commodo enim. Morbi sapien justo, luctus non enim ut, iaculis
-            accumsan est. Aliquam auctor.
+            {props.recipe.analyzedInstructions[0].steps.map(el => <li key={el.number}><span >{el.step}</span></li>)}
           </Typography>
         </Grid>
       </Grid>

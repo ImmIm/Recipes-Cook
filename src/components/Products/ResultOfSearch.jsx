@@ -3,21 +3,19 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from '../../App';
 import { useSelector } from 'react-redux';
 import Recipe from '../Recipes/Recipe';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { recipesActions } from '../../store/store';
 
 export default function ResultOfSearch(props) {
-    const context = useContext(AppContext);
-    const dispatch = useDispatch()
+  const context = useContext(AppContext);
+  const dispatch = useDispatch();
   const recipes = useSelector((store) => store.recipes.recipes);
 
   const currentProducts = context.currentProducts;
- 
 
   useEffect(() => {
     console.log('Changed context');
   }, [context.currentProducts]);
-
 
   dispatch(recipesActions.setInredients({ ingredient: currentProducts }));
 
@@ -25,7 +23,7 @@ export default function ResultOfSearch(props) {
     <Grid container spacing={2} sx={{ padding: '10px' }}>
       {recipes.map((recipe) => {
         const img = recipe.image;
-        return <Recipe recipe={recipe} img={img} key={recipe.id}/>;
+        return <Recipe recipe={recipe} img={img} key={recipe.id} />;
       })}
     </Grid>
   );

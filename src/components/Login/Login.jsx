@@ -36,7 +36,8 @@ export default function Login() {
   useEffect(() => {
     setOpacity(1);
   }, []);
-  //add useEffect hook   delay checking validity
+
+  
   return (
     <Box
       component='form'

@@ -26,7 +26,7 @@ const Recipes = () => {
       </Box>
     </Grid>
     <Grid item xs={8} component='section'>
-    <OneRecipe/>
+    {/* <OneRecipe/> */}
     </Grid>
   </Grid>
 

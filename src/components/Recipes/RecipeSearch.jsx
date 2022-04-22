@@ -58,8 +58,6 @@ function RecipeSearch() {
     return () => clearTimeout(timer);
   }, [value]);
 
-  // fetch(`https://api.spoonacular.com/recipes/autocomplete?number=10&query=${query}`)
-
   return (
     <Stack
       spacing={2}

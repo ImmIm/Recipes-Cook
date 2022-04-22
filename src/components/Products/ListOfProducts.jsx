@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { recipesActions } from '../../store/store';
 import store from '../../store/store';
+import errorImg from '../../Assets/Imgs/error402.jpg';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -65,16 +66,27 @@ export default function ListOfProducts() {
 
   const searchHandler = () => {
     context.setCurrentProducts((prev) => {
+      console.log(context.products);
       return [
         ...prev,
         ...context.products
-          .filter((e) => e.value == true)
+          .filter((e) => e.value === true)
           .map((e) => {
             return e.title;
           }),
       ];
     });
   };
+
+  const noneRecipe = [
+    {
+      id: 'test',
+      title: 'Sorry. we"ve out of points :C',
+      image: 'https://m.buro247.ua/images/2017/09/insta-of-the-week-sad-cat-luhu-17.jpg',
+      description: 'Error 402',
+      ingredient: ['garlic', 'apple', 'orange'],
+    },
+  ];
 
   React.useEffect(() => {
     if (context.currentProducts !== []) {
@@ -83,32 +95,36 @@ export default function ListOfProducts() {
     }
   }, [context.currentProducts, dispatch]);
 
+
+  // 5a0abc362e76484ba29eeb96b16641a7
+  // 8dbf3f3eb9894749829f44b3ea57a34d
   const getData = (products) => async (dispatch) => {
-    console.log(products);
     if (products.length === 0) {
       return;
     }
-    try {
-      fetch(
-        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(
-          ',+'
-        )}&number=12&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`
-      )
+    fetch(
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.map(
+        (el) => el + ',+'
+      )}&number=2&ignorePantry=true&apiKey=5a0abc362e76484ba29eeb96b16641a7`
+    )
       .then(function (response) {
         return response.json();
       })
       .then(function (data) {
+        if (data.status === 'failure') {
+          dispatch(recipesActions.setRecipes({ data: noneRecipe }));
+          dispatch(recipesActions.setLoaded());
+          return;
+        }
         dispatch(recipesActions.setRecipes({ data: data }));
         dispatch(recipesActions.setLoaded());
+      })
+      .catch((err) => {
+        console.error(err.message);
       });
-      return;
-    } catch (error) {
-      dispatch(recipesActions.setRecipes({data: ''}))
-      dispatch(recipesActions.setLoaded());
-      console.error(error);
-    }
-    
+    return;
   };
+
   return (
     <div className='products'>
       <Accordion
@@ -120,7 +136,7 @@ export default function ListOfProducts() {
         <AccordionDetails>
           <Typography>
             {context.products
-              .filter((e) => e.type === 'meat')
+              .filter((el) => el.type === 'meat')
               .map((e) => {
                 return (
                   <span key={e.title}>
