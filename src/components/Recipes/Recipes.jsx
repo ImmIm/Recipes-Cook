@@ -10,7 +10,7 @@ const Recipes = () => {
     container
     component='main'
     spacing={2}
-    sx={{ backgroundColor: '#E7DBC6',height: '100%', marginBottom:'70px', paddingTop: '70px'}}>
+    sx={{ backgroundColor: '#E7DBC6',height: '100%', overflow: 'hidden'}}>
     <Grid item component='aside' xs={4} sx={{overflow: 'hidden'}}>
       <Box
         xs={4}

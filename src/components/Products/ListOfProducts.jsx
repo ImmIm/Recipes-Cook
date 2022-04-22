@@ -5,8 +5,8 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import {useContext} from 'react';
-import {useState} from 'react';
+import { useContext } from 'react';
+import { useState } from 'react';
 import { AppContext } from '../../App';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,11 +49,6 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-
-
-
-
-
 export default function ListOfProducts() {
   const context = useContext(AppContext);
   const [expanded, setExpanded] = React.useState('');
@@ -70,87 +65,147 @@ export default function ListOfProducts() {
   const handleChange2 = (panel) => (event, newExpanded) => {
     setExpanded2(newExpanded ? panel : false);
   };
-  const  searchHandler = () => {
-   context.setCurrentProducts((prev) => {return [...prev, ...context.products.filter(e => e.value == true).map(e => {return e.title}) ]});
-  }
+  const searchHandler = () => {
+    context.setCurrentProducts((prev) => {
+      return [
+        ...prev,
+        ...context.products
+          .filter((e) => e.value == true)
+          .map((e) => {
+            return e.title;
+          }),
+      ];
+    });
+  };
 
   React.useEffect(() => {
-    getData(context.currentProducts)(dispatch);
-    dispatch(recipesActions.setLoading());
-  }, [context.currentProducts]);
+    if (context.currentProducts !== []) {
+      getData(context.currentProducts)(dispatch);
+      dispatch(recipesActions.setLoading());
+    }
+  }, [context.currentProducts, dispatch]);
 
   const getData = (products) => async (dispatch) => {
-    if (products) {
-      fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(",+")}&number=12&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`)
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          dispatch(recipesActions.setRecipes({data: data}));
-          dispatch(recipesActions.setLoaded());
-        });
+    console.log(products);
+    if (products.length === 0) {
+      return;
     }
-    return;
-    };
-  return ( 
-  <div className="products">
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+    try {
+      fetch(
+        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.join(
+          ',+'
+        )}&number=12&ignorePantry=true&apiKey=8dbf3f3eb9894749829f44b3ea57a34d`
+      )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        dispatch(recipesActions.setRecipes({ data: data }));
+        dispatch(recipesActions.setLoaded());
+      });
+      return;
+    } catch (error) {
+      dispatch(recipesActions.setRecipes({data: ''}))
+      dispatch(recipesActions.setLoaded());
+      console.error(error);
+    }
+    
+  };
+  return (
+    <div className='products'>
+      <Accordion
+        expanded={expanded === 'panel1'}
+        onChange={handleChange('panel1')}>
+        <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
           <Typography>Meat</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            {context.products.filter(e => e.type === 'meat').map(e => {
-                return <span key={e.title}>
-                <Button variant="outlined" style={{background: e.value == true ? "pink" : "white"}}
-                onClick={(b) => {
-                    b.target.style.background === 'white' ? b.target.style.background = "pink" : b.target.style.background = "white";
-                    e.value = !e.value;
-                    }}
-                >{e.title}</Button>
-                </span>
-            })}
+            {context.products
+              .filter((e) => e.type === 'meat')
+              .map((e) => {
+                return (
+                  <span key={e.title}>
+                    <Button
+                      variant='outlined'
+                      style={{ background: e.value == true ? 'pink' : 'white' }}
+                      onClick={(b) => {
+                        b.target.style.background === 'white'
+                          ? (b.target.style.background = 'pink')
+                          : (b.target.style.background = 'white');
+                        e.value = !e.value;
+                      }}>
+                      {e.title}
+                    </Button>
+                  </span>
+                );
+              })}
           </Typography>
         </AccordionDetails>
-      </Accordion> 
-      <Accordion expanded={expanded1 === 'panel2'} onChange={handleChange1('panel2')}>
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+      </Accordion>
+      <Accordion
+        expanded={expanded1 === 'panel2'}
+        onChange={handleChange1('panel2')}>
+        <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
           <Typography>Fruits</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            {context.products.filter(e => e.type === 'fruits').map(e => {
-                return <span key={e.title}>
-                  <Button variant="outlined" style={{background: e.value == true ? "pink" : "white"}}
-                onClick={(b) => {
-                    b.target.style.background === 'white' ? b.target.style.background = "pink" : b.target.style.background = "white";
-                    e.value = !e.value;}}
-                >{e.title}</Button>
-                </span>
-            })}
+            {context.products
+              .filter((e) => e.type === 'fruits')
+              .map((e) => {
+                return (
+                  <span key={e.title}>
+                    <Button
+                      variant='outlined'
+                      style={{ background: e.value == true ? 'pink' : 'white' }}
+                      onClick={(b) => {
+                        b.target.style.background === 'white'
+                          ? (b.target.style.background = 'pink')
+                          : (b.target.style.background = 'white');
+                        e.value = !e.value;
+                      }}>
+                      {e.title}
+                    </Button>
+                  </span>
+                );
+              })}
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded2 === 'panel3'} onChange={handleChange2('panel3')}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+      <Accordion
+        expanded={expanded2 === 'panel3'}
+        onChange={handleChange2('panel3')}>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
           <Typography>Vegetables</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            {context.products.filter(e => e.type === 'vegetables').map(e => {
-                return <span key={e.title}>
-                 <Button variant="outlined" style={{background: e.value == true ? "pink" : "white"}}
-                onClick={(b) => {
-                    b.target.style.background === 'white' ? b.target.style.background = "pink" : b.target.style.background = "white";
-                    e.value = !e.value;}}
-                >{e.title}</Button>
-                </span>
-            })}
+            {context.products
+              .filter((e) => e.type === 'vegetables')
+              .map((e) => {
+                return (
+                  <span key={e.title}>
+                    <Button
+                      variant='outlined'
+                      style={{ background: e.value == true ? 'pink' : 'white' }}
+                      onClick={(b) => {
+                        b.target.style.background === 'white'
+                          ? (b.target.style.background = 'pink')
+                          : (b.target.style.background = 'white');
+                        e.value = !e.value;
+                      }}>
+                      {e.title}
+                    </Button>
+                  </span>
+                );
+              })}
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Button variant="contained"
-      onClick={searchHandler}>Search</Button>
+      <Button variant='contained' onClick={searchHandler}>
+        Search
+      </Button>
     </div>
   );
 }

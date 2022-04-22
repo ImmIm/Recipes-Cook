@@ -19,6 +19,7 @@ import FlagIL from '../../Assets/svg/FlagIL';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions, uiActions } from '../../store/store';
+import { useNavigate } from "react-router-dom";
 
 const pages = ['Products', 'Recipes'];
 
@@ -30,6 +31,9 @@ const Header = (props) => {
   const currentUser = useSelector((store) => store.auth.currentUser);
   const [logged, setLogged] = React.useState(false);
   const backdrop = useSelector((store) => store.ui.backdrop);
+  const loginmodal = useSelector(store => store.ui.loginmodal)
+  const signupmodal = useSelector(store => store.ui.signupmodal)
+  const navigate = useNavigate()
   const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
@@ -39,8 +43,9 @@ const Header = (props) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
+    navigate(`Recipes-Cook/${page}`);
   };
 
   const handleCloseUserMenu = () => {
@@ -55,6 +60,8 @@ const Header = (props) => {
       }
     });
   };
+
+  
 
   const logoutHandler = () => {
     dispatch(authActions.logout());
@@ -83,11 +90,6 @@ const Header = (props) => {
     dispatch(uiActions.setSignUpStatus());
   };
 
-  // const testHandler = () => {
-  // getData()(dispatch);
-  // console.log(test);
-  // };
-
   const themeChangeHandler = () => {
     dispatch(uiActions.toggleTheme());
   };
@@ -97,7 +99,7 @@ const Header = (props) => {
   ];
   return (
     <AppBar
-      position='fixed'
+      position='sticky'
       sx={{
         maxWidth: '1920px',
         margin: '0 auto',
@@ -157,7 +159,7 @@ const Header = (props) => {
                 </Link>
               </MenuItem>
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={handleCloseNavMenu} disabled={loginmodal || signupmodal}>
                   <Link
                     to={`Recipes-Cook/${page}`}
                     style={{ textDecoration: 'none' }}>
@@ -179,16 +181,14 @@ const Header = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link
-                to={`Recipes-Cook/${page}`}
-                style={{ textDecoration: 'none' }}>
                 <Button
+                  onClick={() => handleCloseNavMenu(page)}
+                  sx={{ my: 2, color: theme === 'bright' ? '#000000' : '#F7F9FB', display: 'block' }}
+                  disabled={loginmodal || signupmodal}
                   key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: theme === 'bright' ? '#000000' : '#F7F9FB', display: 'block' }}>
+                  >
                   {page}
                 </Button>
-              </Link>
             ))}
           </Box>
           {logged ? (
@@ -253,7 +253,6 @@ const Header = (props) => {
           <Box>
             <DarkSwitch onChange={themeChangeHandler} defaultChecked/>
           </Box>
-          {/* <Button onClick={testHandler}>test</Button> */}
         </Toolbar>
       </Container>
     </AppBar>
