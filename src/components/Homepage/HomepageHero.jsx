@@ -4,6 +4,7 @@ import Search from '../Products/Search';
 import HomePageSearch from './HomePageSearch';
 import { useSelector } from 'react-redux';
 
+
 function HomepageHero() {
 
   const theme = useSelector(state => state.ui.theme);
@@ -11,7 +12,7 @@ function HomepageHero() {
     <section>
       <Container
         maxWidth='1920px'
-        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px', width: '100vw',height: '100vh', backgroundColor: '#31708E', overflow: 'hidden', backgroundColor: theme === 'bright' ? '#E7DBC6' : '#000000'}}
+        sx={{ padding: '0 0', border: '0 0', position: 'relative', maxWidth: '1920px',height: '100vh', overflow: 'hidden', backgroundColor: theme === 'bright' ? '#E7DBC6' : '#000000'}}
         disableGutters>
         <Box
           sx={{

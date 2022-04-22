@@ -3,6 +3,7 @@ import Recipe from './Recipe.jsx';
 import RecipeSearch from './RecipeSearch.jsx';
 import Container from '@mui/material/Container';
 import { Box, Grid } from '@mui/material';
+import OneRecipe from './OneRecipe.jsx';
 
 const Recipes = () => {
   return (
@@ -25,6 +26,7 @@ const Recipes = () => {
       </Box>
     </Grid>
     <Grid item xs={8} component='section'>
+    <OneRecipe/>
     </Grid>
   </Grid>
 
