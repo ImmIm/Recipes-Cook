@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { recipesActions } from '../../store/store';
 import store from '../../store/store';
 import errorImg from '../../Assets/Imgs/error402.jpg';
+import { Container } from '@mui/material';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -52,6 +53,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function ListOfProducts() {
   const context = useContext(AppContext);
+  const theme = useSelector(state => state.ui.theme);
   const [expanded, setExpanded] = React.useState('');
   const [expanded1, setExpanded1] = React.useState('');
   const [expanded2, setExpanded2] = React.useState('');
@@ -126,11 +128,11 @@ export default function ListOfProducts() {
   };
 
   return (
-    <div className='products'>
+    <Container className='products' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#31708E'}}>
       <Accordion
         expanded={expanded === 'panel1'}
         onChange={handleChange('panel1', setExpanded)}>
-        <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
+        <AccordionSummary aria-controls='panel1d-content' id='panel1d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Meat</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -160,7 +162,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded1 === 'panel2'}
         onChange={handleChange('panel2', setExpanded1)}>
-        <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
+        <AccordionSummary aria-controls='panel2d-content' id='panel2d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Fruits</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -190,7 +192,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded2 === 'panel3'}
         onChange={handleChange('panel3', setExpanded2)}>
-        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Vegetables</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -220,7 +222,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded3 === 'panel4'}
         onChange={handleChange('panel4', setExpanded3)}>
-        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Pasta</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -250,7 +252,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded4 === 'panel5'}
         onChange={handleChange('panel5', setExpanded4)}>
-        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Groats</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -280,7 +282,7 @@ export default function ListOfProducts() {
       <Accordion
         expanded={expanded5 === 'panel6'}
         onChange={handleChange('panel6', setExpanded5)}>
-        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+        <AccordionSummary aria-controls='panel3d-content' id='panel3d-header' sx={{backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5'}}>
           <Typography>Fish</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -310,6 +312,6 @@ export default function ListOfProducts() {
       <Button variant='contained' onClick={searchHandler}>
         Search
       </Button>
-    </div>
+    </Container>
   );
 }

@@ -21,6 +21,8 @@ const preloadedState = {
   recipes: {
     chosenIngredients: '',
     recipes: [],
+    filteredRecipes: [],
+    randomRecipes: [],
     oneRecipe: {},
     loadingImgs: false,
     diets: [
@@ -110,11 +112,12 @@ const uiSlice = createSlice({
   initialState: preloadedState.ui,
   reducers: {
     toggleTheme(state) {
-      console.log('done');
       if (state.theme === 'dark') {
         state.theme = 'bright';
+        document.body.style.backgroundColor = '#E7DBC6';
         return state;
       }
+      document.body.style.backgroundColor = '#31708E';
       state.theme = 'dark';
       return state;
     },
@@ -217,6 +220,15 @@ const recipesSlice = createSlice({
     },
     setRecipes(state, action) {
       state.recipes = action.payload.data;
+      return state;
+    },
+    setFilteredRecipes(state, action) {
+      state.filteredRecipes = action.payload.data;
+      return state;
+    },
+    setRandomedRecipes(state, action){
+      console.log(action.payload.data['recipes']);
+      state.randomRecipes = action.payload.data['recipes'];
       return state;
     },
     setLoading(state, action) {

@@ -4,11 +4,13 @@ import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { AppContext } from "../../App";
 import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 export default function Search() {
+  const theme = useSelector(state => state.ui.theme)
   const context = useContext(AppContext);
   return (
-    <Stack spacing={2} sx={{ maxWidth: 300, margin: '0 auto'}} className="search">
+    <Stack spacing={2} sx={{ maxWidth: 300, margin: '0 auto', backgroundColor: theme === 'bright' ? '#E7DBC6' : '#31708E'}} className="search">
       <Autocomplete
         freeSolo
         autoHighlight={true}
