@@ -9,6 +9,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import FlatwareIcon from '@mui/icons-material/Flatware';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Box } from '@mui/system';
+import style from './OneRecipe.module.css'
 
 const WrappedIcon = (props) => <Icon {...props} />;
 
@@ -33,7 +34,8 @@ export default function OneRecipe(props) {
         borderRadius: '25px',
         position: 'fixed',
         overflowY: 'scroll',
-      }}>
+      }}
+      className={style}>
       <Grid container spacing={2} sx={{ padding: '10px' }}>
         <Grid item xs={6}>
           <Box sx={{padding: '5px'}}>

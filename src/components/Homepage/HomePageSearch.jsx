@@ -36,8 +36,6 @@ function HomePageSearch() {
           />
         )}
       />
-      We hope you have water, salt and pepper. These products are available by
-      default.
     </Stack>
   )
 }

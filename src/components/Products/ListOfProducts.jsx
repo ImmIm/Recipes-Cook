@@ -107,7 +107,7 @@ export default function ListOfProducts() {
     fetch(
       `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${products.map(
         (el) => el + ',+'
-      )}&number=2&ignorePantry=true&apiKey=5a0abc362e76484ba29eeb96b16641a7`
+      )}&number=12&ignorePantry=true&apiKey=5a0abc362e76484ba29eeb96b16641a7`
     )
       .then(function (response) {
         return response.json();

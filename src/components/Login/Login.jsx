@@ -15,6 +15,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [opacity, setOpacity] = useState(0);
   const [username, setUserName] = useState('');
+  const theme = useSelector(state => state.ui.theme);
   const user = useSelector(state => state.auth.currentUser);
   const dispatch = useDispatch();
 
@@ -46,7 +47,8 @@ export default function Login() {
         maxWidth: '70%',
         width: '100%',
         height: '70%',
-        backgroundColor: '#5085A5',
+        textAlign: 'center',
+        backgroundColor: theme === 'bright' ? '#E7DBC6' : '#5085A5',
         margin: '0 auto',
         top: '50%',
         left: '50%',
@@ -63,7 +65,7 @@ export default function Login() {
       noValidate
       autoComplete='off'
      >
-      <h1>Sign in to acsess more options</h1>
+      <h1>Sign in to access more options</h1>
       {/* data input */}
       <Box
         sx={{
@@ -94,7 +96,7 @@ export default function Login() {
 
       {/* controls */}
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Button
+        {/* <Button
           type='submit'
           value='Login'
           variant='outlined'
@@ -109,8 +111,8 @@ export default function Login() {
           }}
           position='absolute'>
             <GoogleLogo />
-          </Button>
-        <Button
+          </Button> */}
+        {/* <Button
           type='submit'
           value='Login'
           variant='contained'
@@ -122,7 +124,7 @@ export default function Login() {
           }}
           position='absolute'>
           facebook auth
-        </Button>
+        </Button> */}
         <Button
           type='submit'
           value='Login'

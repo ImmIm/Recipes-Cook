@@ -8,17 +8,17 @@ import ResultOfSearch from '../Products/ResultOfSearch.jsx';
 import FilteredRecipes from './FilteredRecipes.jsx';
 import RandomRecipes from './RandomRecipes.jsx';
 import { recipesActions } from '../../store/store';
-import { useDispatch,useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 
 const Recipes = () => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => state.ui.theme);
+  const theme = useSelector((state) => state.ui.theme);
   const noneRecipe = [
     {
       id: 'test',
       title: 'Sorry. we"ve out of points :C',
-      image: 'https://m.buro247.ua/images/2017/09/insta-of-the-week-sad-cat-luhu-17.jpg',
+      image:
+        'https://m.buro247.ua/images/2017/09/insta-of-the-week-sad-cat-luhu-17.jpg',
       description: 'Error 402',
       ingredient: ['garlic', 'apple', 'orange'],
     },
@@ -28,11 +28,9 @@ const Recipes = () => {
   // 8dbf3f3eb9894749829f44b3ea57a34d
 
   React.useEffect(() => {
-      getData()(dispatch);
-      dispatch(recipesActions.setLoading());
-    }
-  , []);
-
+    getData()(dispatch);
+    dispatch(recipesActions.setLoading());
+  }, []);
 
   const getData = () => async (dispatch) => {
     fetch(
@@ -58,30 +56,31 @@ const Recipes = () => {
 
   return (
     <Grid
-    container
-    component='main'
-    spacing={2}
-    sx={{ backgroundColor: '#E7DBC6',height: '100%', overflow: 'hidden'}}>
-    <Grid item component='aside' xs={4} sx={{overflow: 'hidden'}}>
-      <Box
-        xs={4}
-        sx={{
-          margin: '10px 0',
-          backgroundColor: '#FFFFFF',
-          borderRadius: '10px',
-          boxShadow: '3px 5px 10px 0px #000000',
-          position: 'sticky'
-        }}>
-        <RecipeSearch />
-      </Box>
+      container
+      component='main'
+      spacing={2}
+      sx={{
+        backgroundColor: theme === 'bright' ? '#E7DBC6' : '#31708E',
+        height: '100%',
+        overflow: 'hidden',
+      }}>
+      <Grid item component='aside' xs={4} sx={{ overflow: 'hidden' }}>
+        <Box
+          xs={4}
+          sx={{
+            margin: '10px 0',
+            backgroundColor: '#FFFFFF',
+            borderRadius: '10px',
+            boxShadow: '3px 5px 10px 0px #000000',
+            position: 'sticky',
+          }}>
+          <RecipeSearch />
+        </Box>
+      </Grid>
+      <Grid item xs={8} component='section'>
+        <RandomRecipes />
+      </Grid>
     </Grid>
-    <Grid item xs={8} component='section'>
-    <RandomRecipes />
-    </Grid>
-  </Grid>
-
-        
-
   );
 };
 

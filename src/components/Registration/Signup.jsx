@@ -13,6 +13,7 @@ export default function Signup() {
   const[password, setPassword] = useState('');
   const [opacity, setOpacity] = useState(0);
   const[submitpassword, setSubmitpassword] = useState('');
+  const theme = useSelector(state => state.ui.theme);
   const dispatch = useDispatch()
   const users = useSelector(state => state.users);
 
@@ -48,7 +49,8 @@ export default function Signup() {
         maxWidth: '70%',
         width: '100%',
         height: '70%',
-        backgroundColor: '#5085A5',
+        textAlign: 'center',
+        backgroundColor:  theme === 'bright' ? '#E7DBC6' : '#5085A5',
         margin: '0 auto',
         top: '50%',
         left: '50%',
@@ -66,7 +68,7 @@ export default function Signup() {
       autoComplete='off'
       onSubmit={handlerSubmit}
     >
-         <span>Registration:</span> 
+         <h1>Registration</h1> 
       <div>
           <div><TextField
           required
