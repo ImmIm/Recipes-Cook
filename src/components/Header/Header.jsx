@@ -19,7 +19,8 @@ import FlagIL from '../../Assets/svg/FlagIL';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions, uiActions } from '../../store/store';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import avatarImg from '../../Assets/Imgs/avatar.jpg'
 
 const pages = ['Products', 'Recipes'];
 
@@ -31,9 +32,9 @@ const Header = (props) => {
   const currentUser = useSelector((store) => store.auth.currentUser);
   const [logged, setLogged] = React.useState(false);
   const backdrop = useSelector((store) => store.ui.backdrop);
-  const loginmodal = useSelector(store => store.ui.loginmodal)
-  const signupmodal = useSelector(store => store.ui.signupmodal)
-  const navigate = useNavigate()
+  const loginmodal = useSelector((store) => store.ui.loginmodal);
+  const signupmodal = useSelector((store) => store.ui.signupmodal);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
@@ -60,8 +61,6 @@ const Header = (props) => {
       }
     });
   };
-
-  
 
   const logoutHandler = () => {
     dispatch(authActions.logout());
@@ -120,11 +119,16 @@ const Header = (props) => {
             component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
             <Link to='/Recipes-Cook'>
-              <AppLogo theme={theme}/>
+              <AppLogo theme={theme} />
             </Link>
           </Typography>
           {/* Links */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, color: theme === 'bright' ? '#000000' : '#FFFFFF'}}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none' },
+              color: theme === 'bright' ? '#000000' : '#FFFFFF',
+            }}>
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -152,14 +156,15 @@ const Header = (props) => {
                 display: { xs: 'block', md: 'none' },
               }}>
               <MenuItem key={'home'}>
-                <Link
-                  to={`Recipes-Cook/`}
-                  style={{ textDecoration: 'none' }}>
+                <Link to={`Recipes-Cook/`} style={{ textDecoration: 'none' }}>
                   Home
                 </Link>
               </MenuItem>
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} disabled={loginmodal || signupmodal}>
+                <MenuItem
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  disabled={loginmodal || signupmodal}>
                   <Link
                     to={`Recipes-Cook/${page}`}
                     style={{ textDecoration: 'none' }}>
@@ -181,21 +186,29 @@ const Header = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-                <Button
-                  onClick={() => handleCloseNavMenu(page)}
-                  sx={{ my: 2, color: theme === 'bright' ? '#000000' : '#F7F9FB', display: 'block' }}
-                  disabled={loginmodal || signupmodal}
-                  key={page}
-                  >
-                  {page}
-                </Button>
+              <Button
+                onClick={() => handleCloseNavMenu(page)}
+                sx={{
+                  my: 2,
+                  color: theme === 'bright' ? '#000000' : '#F7F9FB',
+                  display: 'block',
+                }}
+                disabled={loginmodal || signupmodal}
+                key={page}>
+                {page}
+              </Button>
             ))}
           </Box>
           {logged ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='Open settings'>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar>{currentUser.name}</Avatar>
+                  <Avatar
+                    alt='avatar'
+                    src={avatarImg}
+                    sx={{ width: 40, height: 40 }}>
+                    {currentUser.name}
+                  </Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -228,11 +241,15 @@ const Header = (props) => {
                 variant='text'
                 aria-label='text button group'
                 sx={{ borderColor: '#F7F9FB' }}>
-                <Button sx={{ color: theme === 'bright' ? '#000000' : '#F7F9FB' }} onClick={loginHandler}>
+                <Button
+                  sx={{ color: theme === 'bright' ? '#000000' : '#F7F9FB' }}
+                  onClick={loginHandler}>
                   Login
                 </Button>
                 {/* <Link to="Recipes-Cook/login" style={{textDecoration: 'none'}}></Link> */}
-                <Button sx={{ color:  theme === 'bright' ? '#000000' : '#F7F9FB' }} onClick={signUphandler}>
+                <Button
+                  sx={{ color: theme === 'bright' ? '#000000' : '#F7F9FB' }}
+                  onClick={signUphandler}>
                   Sigh up
                 </Button>
               </ButtonGroup>
@@ -251,7 +268,7 @@ const Header = (props) => {
             )}
           </Box>
           <Box>
-            <DarkSwitch onChange={themeChangeHandler} defaultChecked/>
+            <DarkSwitch onChange={themeChangeHandler} defaultChecked />
           </Box>
         </Toolbar>
       </Container>
