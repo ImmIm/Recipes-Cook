@@ -10,14 +10,16 @@ This project is a final project of 7 month MASA program in Israel. This applicat
 - HTML5
 - CSS3
 - JavaScript (ES6+)
-- React js
-- redux
-- redux-thunk
-- redux-toolkit
-- React router
-- Material UI
-- react-spring (?)
-- Firebase (Backend)
+- React js 17.0.2
+- redux 7.2.8
+- redux-thunk 2.4.1
+- redux-toolkit 1.8.1
+- React router 6.2.2
+- Material UI 5.5.2
+- Bootstrap Icons 1.8.1
+- gh-pages 3.2.3
+- react-lazy-load-image-component 1.5.4
+
 
 
 Recipes & Cook
